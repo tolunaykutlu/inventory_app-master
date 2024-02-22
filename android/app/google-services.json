@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "295176607495",
+    "project_id": "work-tracker-3bfc9",
+    "storage_bucket": "work-tracker-3bfc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:295176607495:android:1d3ff4bf2abc16d163d7a2",
+        "android_client_info": {
+          "package_name": "com.example.inventory_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH2h0CnuB8O6M3AsMBbdf6s0x-I2u403I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
