@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/firebase_options.dart';
 import 'package:inventory_app/screens/login_page.dart';
-import 'package:inventory_app/screens/main_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Demo',
         theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.white,
           ),

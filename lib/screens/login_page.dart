@@ -7,7 +7,7 @@ class LoginPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text("LOGİN PAGE"),
+      body: const Text("LOGİN PAGE"),
     );
   }
 }
