@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_app/components/app_constants.dart';
+import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/page_header.dart';
 
 class FasonPage extends StatelessWidget {

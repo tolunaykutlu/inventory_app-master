@@ -3,18 +3,31 @@ import 'package:flutter/material.dart';
 
 import 'package:inventory_app/components/app_constants.dart';
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     Key? key,
     required this.title,
+    this.secret = false,
     required this.hintText,
     required this.controller,
+    this.customValitador,
+    this.icon,
+    this.errText,
   }) : super(key: key);
 
+  final String? Function(String?)? customValitador;
   final String title;
+  final bool secret;
   final String hintText;
   final TextEditingController controller;
+  final Widget? icon;
+  final String? errText;
 
+  @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,17 +35,27 @@ class CustomTextFormField extends StatelessWidget {
       child: SizedBox(
         height: 50,
         child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: widget.customValitador,
+            obscureText: widget.secret,
+            obscuringCharacter: "*",
             style: AppConsts.getInstance().syneMono,
             decoration: InputDecoration(
-              hintText: hintText,
+              errorText: widget.errText,
+              suffixIcon: widget.icon,
+              hintText: widget.hintText,
               labelStyle: AppConsts.getInstance().syneMono,
-              label: Text(title),
+              label: Text(widget.title),
+              focusedErrorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Colors.black)),
+              errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(width: 2, color: Colors.black)),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: Colors.black)),
               focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: Colors.black)),
             ),
-            controller: controller),
+            controller: widget.controller),
       ),
     );
   }

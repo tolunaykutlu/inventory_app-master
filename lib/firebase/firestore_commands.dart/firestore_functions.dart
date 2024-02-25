@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:inventory_app/models/product_model.dart';
 
 class FirestoreCommands extends ChangeNotifier {
@@ -71,15 +69,18 @@ class FirestoreCommands extends ChangeNotifier {
               hasPvc: data["hasPvc"],
               kilo: data["kilo"],
               quality: data["quality"],
-              thickness: data[
-                  "thickness"]); // Assuming you have a fromMap constructor in ProductModel
+              thickness: data["thickness"]);
         }).toList();
       } catch (e) {
         // Handle error
 
-        return []; // Return an empty list in case of error
+        return []; // empty list for error
       }
     });
+  }
+
+  Future<void> signOut() {
+    return FirebaseAuth.instance.signOut();
   }
 
   Future<void> deleteDocumentFromFirestore(

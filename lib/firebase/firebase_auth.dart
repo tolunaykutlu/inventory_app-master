@@ -34,10 +34,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future signInWithEmailAndPassword() async {
+  Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: "tk28@gmail.com", password: "1234567");
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         if (kDebugMode) {
