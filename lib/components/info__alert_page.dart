@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/models/product_model.dart';
 
@@ -19,35 +16,35 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
           Column(children: [
             Text(
               "Tarih",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "Kalite",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "Kalınlık",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "En",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "Boy",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "Kilo",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "Fiyat",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
             Text(
               "PVC",
-              style: AppConsts.getInstance().syneMono,
+              style: AppConsts.getInstance().syneMono(),
             ),
           ]),
           Column(

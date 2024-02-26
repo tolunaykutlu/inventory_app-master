@@ -8,14 +8,15 @@ class AppConsts {
     fontSize: 15,
     fontWeight: FontWeight.w600,
   );
-
-  final TextStyle syneMono = GoogleFonts.syneMono(
-    fontWeight: FontWeight.bold,
-    fontSize: 15,
-    color: Colors.black,
-    decoration: TextDecoration.none,
-    decorationThickness: 0,
-  );
+  TextStyle syneMono({Color c = Colors.black, double fSize = 15}) {
+    return GoogleFonts.syneMono(
+      fontWeight: FontWeight.bold,
+      fontSize: fSize,
+      color: c,
+      decoration: TextDecoration.none,
+      decorationThickness: 0,
+    );
+  }
 
   static final AppConsts _instance = AppConsts._internal();
 

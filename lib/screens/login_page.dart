@@ -18,6 +18,7 @@ TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
 class _LoginPageViewState extends ConsumerState<LoginPageView> {
+  //TODO: üste logo eklencek
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,24 +38,47 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                   title: "Şifre",
                   hintText: "qwe123",
                   controller: passwordController),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.black),
-                  onPressed: () {
-                    if (EmailValidator.isValid(emailController.text) &&
-                        passwordController.text != "") {
-                      ref
-                          .read(authProvider)
-                          .signInWithEmailAndPassword(
-                              emailController.text, passwordController.text)
-                          .then((value) => context.go("/mainPage"));
-                    }
-                  },
-                  child: Text(
-                    "Giriş Yap",
-                    style: AppConsts.getInstance().syneMono,
-                  ))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Şifremi Unuttum?",
+                      style: AppConsts.getInstance().syneMono(),
+                    ),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        context.go("/kayit");
+                      },
+                      child: Text(
+                        "Kayıt ol",
+                        style: AppConsts.getInstance().syneMono(c: Colors.red),
+                      ))
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.black),
+                    onPressed: () {
+                      if (EmailValidator.isValid(emailController.text) &&
+                          passwordController.text != "") {
+                        ref
+                            .read(authProvider)
+                            .signInWithEmailAndPassword(
+                                emailController.text, passwordController.text)
+                            .then((value) => context.go("/mainPage"));
+                      }
+                    },
+                    child: Text(
+                      "Giriş Yap",
+                      style: AppConsts.getInstance().syneMono(),
+                    )),
+              )
             ],
           ),
         ));

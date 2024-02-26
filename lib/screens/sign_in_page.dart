@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -38,6 +37,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CustomTextFormField(
                   title: "E-mail",
@@ -67,11 +67,11 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                 visible: isVisible(),
                 child: Text(
                   "Şifreler aynı olmalıdır!!",
-                  style: AppConsts.getInstance().syneMono,
+                  style: AppConsts.getInstance().syneMono(c: Colors.red),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 50),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
@@ -110,7 +110,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                     },
                     child: Text(
                       "Kayıt ol",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     )),
               )
             ],

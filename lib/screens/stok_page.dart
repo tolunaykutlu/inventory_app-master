@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
-
 import 'package:inventory_app/components/dropdown_button.dart';
-import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
 import 'package:inventory_app/extensions/get_size.dart';
-
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/helpers/date_formatter.dart';
-
 import 'package:inventory_app/models/product_model.dart';
 
 class PageThree extends ConsumerStatefulWidget {
@@ -27,7 +22,7 @@ class PageThree extends ConsumerStatefulWidget {
 class _PageThreeState extends ConsumerState<PageThree> {
   int hasNullValue = 0;
   ProductModel productData = ProductModel();
-  String docId = "";
+
   final List<String> filters = ["430BA", "430SB", "4302B", "3042B", "304BA"];
   String selectedFilter = "430BA";
 
@@ -111,7 +106,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   },
                   child: Text(
                     "Stok Ekle",
-                    style: AppConsts.getInstance().syneMono,
+                    style: AppConsts.getInstance().syneMono(),
                   ))
             ],
           ),
@@ -155,35 +150,35 @@ class _PageThreeState extends ConsumerState<PageThree> {
                     width: 60,
                     child: Text(
                       "${products[index].quality} x",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       " ${products[index].thickness!.toStringAsFixed(2)} x",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].en} x",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].boy}",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].kilo.toString()} kg",
-                      style: AppConsts.getInstance().syneMono,
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   IconButton(

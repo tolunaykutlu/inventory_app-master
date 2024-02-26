@@ -43,7 +43,7 @@ class FasonPage extends StatelessWidget {
                             children: [
                               Text(
                                 "data",
-                                style: AppConsts.getInstance().syneMono,
+                                style: AppConsts.getInstance().syneMono(),
                               ),
                               IconButton(
                                 style: IconButton.styleFrom(

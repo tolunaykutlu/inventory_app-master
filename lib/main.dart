@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:inventory_app/firebase_options.dart';
+import 'package:inventory_app/screens/calculation_page.dart';
 import 'package:inventory_app/screens/login_page.dart';
 import 'package:inventory_app/screens/main_page.dart';
 import 'package:inventory_app/screens/sign_in_page.dart';
@@ -17,11 +18,12 @@ void main() async {
 final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
-      builder: (context, state) => FirebaseAuth.instance.currentUser != null
+        path: '/',
+        builder: (context, state) =>
+            CalculationPage() /* FirebaseAuth.instance.currentUser != null
           ? const MainPage()
-          : const LoginPageView(),
-    ),
+          : const LoginPageView(), */
+        ),
     GoRoute(
       path: '/kayit',
       builder: (context, state) => const SignInPage(),
@@ -47,6 +49,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Demo',
         theme: ThemeData(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.black)),
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.white,

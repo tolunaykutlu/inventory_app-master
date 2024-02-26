@@ -39,12 +39,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             validator: widget.customValitador,
             obscureText: widget.secret,
             obscuringCharacter: "*",
-            style: AppConsts.getInstance().syneMono,
+            style: AppConsts.getInstance().syneMono(),
             decoration: InputDecoration(
               errorText: widget.errText,
               suffixIcon: widget.icon,
               hintText: widget.hintText,
-              labelStyle: AppConsts.getInstance().syneMono,
+              labelStyle: AppConsts.getInstance().syneMono(),
               label: Text(widget.title),
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: Colors.black)),
