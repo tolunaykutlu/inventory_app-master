@@ -5,6 +5,7 @@ import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 
 import 'package:inventory_app/components/dropdown_button.dart';
+import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
@@ -62,7 +63,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   );
                 },
               ),
-              const HorizontalDivider(),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: SizedBox(
@@ -279,7 +279,8 @@ class _PageThreeState extends ConsumerState<PageThree> {
                                 if (inputPro.thicknessValue.text != "" &&
                                     inputPro.enValue.text != "" &&
                                     inputPro.kiloValue.text != "" &&
-                                    inputPro.fiyatValue.text != "") {
+                                    inputPro.fiyatValue.text == "") {
+                                  inputPro.fiyatValue.text = "0";
                                   productData = ProductModel(
                                       id: "",
                                       hasPvc: hasPvc,

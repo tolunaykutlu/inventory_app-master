@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_app/screens/calculation_page.dart';
 
 import 'package:inventory_app/screens/fason_page_two.dart';
 
@@ -17,12 +18,11 @@ class _MainPageState extends State<MainPage> {
     const BottomNavigationBarItem(
         icon: Icon(Icons.inventory_2_sharp), label: "Stok"),
     const BottomNavigationBarItem(
-        icon: Icon(Icons.drive_file_rename_outline_sharp), label: "Fason")
+        icon: Icon(Icons.drive_file_rename_outline_sharp), label: "Fason"),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.calculate_sharp), label: "Hesaplama"),
   ];
-  List pages = [
-    const PageThree(),
-    const FasonPage(),
-  ];
+  List pages = [const PageThree(), const FasonPage(), const CalculationPage()];
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
