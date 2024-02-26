@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Demo',
         theme: ThemeData(
-          appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
           bottomSheetTheme: const BottomSheetThemeData(
             backgroundColor: Colors.white,
           ),
