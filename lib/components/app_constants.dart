@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppConsts {
-  final TextStyle standartText = const TextStyle(
-    fontFamily: "Jua",
-    color: Colors.black,
-    fontSize: 15,
-    fontWeight: FontWeight.w600,
-  );
+  TextStyle standartText({Color c = Colors.black, double fSize = 15}) {
+    return TextStyle(
+      fontFamily: "Jua",
+      color: c,
+      fontSize: fSize,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
   TextStyle syneMono({Color c = Colors.black, double fSize = 15}) {
     return GoogleFonts.syneMono(
       fontWeight: FontWeight.bold,

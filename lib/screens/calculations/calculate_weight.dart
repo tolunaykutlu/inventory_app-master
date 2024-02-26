@@ -26,7 +26,14 @@ class _WeightCalculationState extends State<WeightCalculation> {
               return StatefulBuilder(
                 builder: (context, setState) {
                   return AlertDialog(
-                      title: const Text("Weight Calculator"),
+                      shadowColor: Colors.white,
+                      backgroundColor: Colors.white,
+                      title: Center(
+                        child: Text(
+                          "Adet kilo hesabı",
+                          style: AppConsts.getInstance().syneMono(fSize: 25),
+                        ),
+                      ),
                       contentTextStyle: AppConsts.getInstance().syneMono(),
                       content: Column(
                         children: [
@@ -42,18 +49,39 @@ class _WeightCalculationState extends State<WeightCalculation> {
                               title: "uzunluk",
                               hintText: "2500",
                               controller: hCont),
-                          Text("Adet kilo değeri ---- $sonuc"),
-                          TextButton(
+                          Center(
+                            child: Text(
+                                maxLines: 4,
+                                "1 Adet ${tCont.text} x ${wCont.text} x ${hCont.text} çelik kilo değeri  $sonuc"),
+                          ),
+                          ElevatedButton(
                               //TODO: hesaplama sayfasına başka hesaplamalar eklenecek
                               onPressed: () {
                                 setState(() {
-                                  double res = double.parse(wCont.text) *
-                                      double.parse(hCont.text) *
-                                      double.parse(tCont.text);
-                                  sonuc = res * freeWeight;
+                                  if (wCont.text != "" &&
+                                      hCont.text != "" &&
+                                      tCont.text != "") {
+                                    double res = double.parse(wCont.text) *
+                                        double.parse(hCont.text) *
+                                        double.parse(tCont.text);
+                                    sonuc = res * freeWeight;
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) => AlertDialog(
+                                              content: Text(
+                                                  "bütün alanları doldurun",
+                                                  style: AppConsts.getInstance()
+                                                      .syneMono()),
+                                            ));
+                                  }
                                 });
                               },
-                              child: const Text("Hesapla"))
+                              child: Text(
+                                "Hesapla",
+                                style: AppConsts.getInstance()
+                                    .standartText(c: Colors.black, fSize: 20),
+                              ))
                         ],
                       ));
                 },

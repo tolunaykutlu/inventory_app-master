@@ -51,6 +51,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
+                  shape: ContinuousRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   backgroundColor: Colors.green,
                   foregroundColor: Colors.black)),
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
