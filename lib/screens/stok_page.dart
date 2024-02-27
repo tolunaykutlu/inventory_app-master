@@ -63,7 +63,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 child: SizedBox(
                     height: context.deviceHeight * 0.6,
                     child: StreamBuilder<List<ProductModel>>(
-                      stream: ref //data getirilcek
+                      stream: ref
                           .read(firebaseProvider)
                           .getAllDocumentsStreamFromFirestore(selectedFilter),
                       builder: (context, AsyncSnapshot snapshot) {

@@ -7,7 +7,7 @@ import 'package:inventory_app/firebase_options.dart';
 import 'package:inventory_app/screens/calculation_page.dart';
 import 'package:inventory_app/screens/login_page.dart';
 import 'package:inventory_app/screens/main_page.dart';
-import 'package:inventory_app/screens/sign_in_page.dart';
+import 'package:inventory_app/screens/sign_up_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,14 +18,13 @@ void main() async {
 final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
-        path: '/',
-        builder: (context, state) =>
-            CalculationPage() /* FirebaseAuth.instance.currentUser != null
+      path: '/',
+      builder: (context, state) => FirebaseAuth.instance.currentUser != null
           ? const MainPage()
-          : const LoginPageView(), */
-        ),
+          : const LoginPageView(),
+    ),
     GoRoute(
-      path: '/kayit',
+      path: '/Sign',
       builder: (context, state) => const SignInPage(),
     ),
     GoRoute(
@@ -33,7 +32,7 @@ final GoRouter _router = GoRouter(
       builder: (context, state) => const MainPage(),
     ),
     GoRoute(
-      path: '/Calculation',
+      path: '/Login',
       builder: (context, state) => const LoginPageView(),
     ),
   ],

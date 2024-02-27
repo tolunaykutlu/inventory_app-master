@@ -1,16 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 
-class WeightCalculation extends StatefulWidget {
-  const WeightCalculation({super.key});
+class PvcAlanCalculatePage extends StatefulWidget {
+  const PvcAlanCalculatePage({super.key});
 
   @override
-  State<WeightCalculation> createState() => _WeightCalculationState();
+  State<PvcAlanCalculatePage> createState() => _PvcAlanCalculatePageState();
 }
 
-class _WeightCalculationState extends State<WeightCalculation> {
-  TextEditingController wCont = TextEditingController();
+class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
+  TextEditingController CountController = TextEditingController();
   TextEditingController hCont = TextEditingController();
   TextEditingController tCont = TextEditingController();
   double freeWeight = 7.85;
@@ -30,7 +31,7 @@ class _WeightCalculationState extends State<WeightCalculation> {
                       backgroundColor: Colors.white,
                       title: Center(
                         child: Text(
-                          "Adet kilo hesabı",
+                          "Metre kare hesabı",
                           style: AppConsts.getInstance().syneMono(fSize: 25),
                         ),
                       ),
@@ -38,31 +39,31 @@ class _WeightCalculationState extends State<WeightCalculation> {
                       content: Column(
                         children: [
                           CustomTextFormField(
-                              title: "kalınlık",
+                              title: "adet",
                               hintText: "0.40",
-                              controller: tCont),
+                              controller: CountController),
                           CustomTextFormField(
                               title: "genişlik",
                               hintText: "1200",
-                              controller: wCont),
+                              controller: hCont),
                           CustomTextFormField(
                               title: "uzunluk",
                               hintText: "2500",
-                              controller: hCont),
+                              controller: tCont),
                           Center(
-                            child: Text(
-                                maxLines: 4,
-                                "1 Adet ${tCont.text} x ${wCont.text} x ${hCont.text} çelik kilo değeri  $sonuc"),
+                            child: Text(maxLines: 4, "$sonuc metre kare "),
                           ),
                           ElevatedButton(
+                              //TODO: hesaplama sayfasına başka hesaplamalar eklenecek /fason sayfası yapılıp datalar getirelecek
                               onPressed: () {
                                 setState(() {
-                                  if (wCont.text != "" &&
+                                  if (CountController.text != "" &&
                                       hCont.text != "" &&
                                       tCont.text != "") {
-                                    double res = double.parse(wCont.text) *
-                                        double.parse(hCont.text) *
-                                        double.parse(tCont.text);
+                                    double res =
+                                        double.parse(CountController.text) *
+                                            (double.parse(hCont.text) *
+                                                double.parse(tCont.text));
                                     sonuc = res * freeWeight;
                                   } else {
                                     showDialog(
@@ -89,8 +90,8 @@ class _WeightCalculationState extends State<WeightCalculation> {
           );
         },
         child: Text(
-          "Ağırlık Hesaplama",
-          style: AppConsts.getInstance().syneMono(fSize: 20),
+          "PVC metre kare hesabı",
+          style: AppConsts.getInstance().syneMono(c: Colors.white, fSize: 20),
         ));
   }
 }

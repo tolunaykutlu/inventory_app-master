@@ -33,7 +33,12 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => context.go("/Login"),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -105,6 +110,13 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                               },
                             );
                           });
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Bütün alanları doldurunuz"),
+                            ),
+                          );
                         }
                       });
                     },

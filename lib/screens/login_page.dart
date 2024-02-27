@@ -18,7 +18,6 @@ TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
 class _LoginPageViewState extends ConsumerState<LoginPageView> {
-  //TODO: üste logo eklencek
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +49,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                   ),
                   TextButton(
                       onPressed: () {
-                        context.go("/kayit");
+                        context.go("/Sign");
                       },
                       child: Text(
                         "Kayıt ol",
