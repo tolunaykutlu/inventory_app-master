@@ -35,7 +35,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () => context.go("/Login"),
           ),
         ),
@@ -113,7 +113,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                         } else {
                           showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
+                            builder: (context) => const AlertDialog(
                               title: Text("Bütün alanları doldurunuz"),
                             ),
                           );

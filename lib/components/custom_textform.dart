@@ -13,6 +13,7 @@ class CustomTextFormField extends StatefulWidget {
     this.customValitador,
     this.icon,
     this.errText,
+    this.maxL = 1,
   }) : super(key: key);
 
   final String? Function(String?)? customValitador;
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final Widget? icon;
   final String? errText;
+  final int maxL;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -35,6 +37,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       child: SizedBox(
         height: 50,
         child: TextFormField(
+            maxLines: widget.maxL,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.customValitador,
             obscureText: widget.secret,

@@ -71,6 +71,13 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                             .signInWithEmailAndPassword(
                                 emailController.text, passwordController.text)
                             .then((value) => context.go("/mainPage"));
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const AlertDialog(
+                            title: Text("Bütün alanları doldurunuz"),
+                          ),
+                        );
                       }
                     },
                     child: Text(

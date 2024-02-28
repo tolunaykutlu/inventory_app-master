@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_app/models/fason_kesim_model.dart';
 import 'package:inventory_app/models/product_model.dart';
 
 class FirestoreCommands extends ChangeNotifier {
@@ -79,6 +80,35 @@ class FirestoreCommands extends ChangeNotifier {
     });
   }
 
+  Stream<List<FasonWork>> getAllFasonDocumentsStreamFromFirestore(
+      String collectionName) {
+    final collectionRef = FirebaseFirestore.instance.collection(collectionName);
+
+    return collectionRef.snapshots().map((querySnapshot) {
+      try {
+        return querySnapshot.docs.map((snapshot) {
+          final data = snapshot.data();
+          data['id'] = snapshot.id;
+
+          return FasonWork(
+            firmName: data["firmName"],
+            boy: data["boy"],
+            kilo: data["kilo"],
+            date: data["date"],
+            pQuality: data["pQuality"],
+            pThickness: data["pThickness"],
+            en: data["en"],
+            description: data["description"],
+          );
+        }).toList();
+      } catch (e) {
+        // Handle error
+
+        return []; // empty list for error
+      }
+    });
+  }
+
   Future<void> signOut() {
     return FirebaseAuth.instance.signOut();
   }
@@ -111,13 +141,21 @@ class FirestoreCommands extends ChangeNotifier {
     }
   }
 
-  Future addProductToDb(
+  Future addProductToStokDb(
     //kalitesine göre dokuman adıver ve ekle
     String collectName,
     ProductModel p,
   ) async {
     {
       await _firestoreInstance.collection(collectName).add(p.toMap());
+    }
+  }
+
+  Future addProductToFasonDb(
+    FasonWork fason,
+  ) async {
+    {
+      await _firestoreInstance.collection("fasons").add(fason.toMap());
     }
   }
 

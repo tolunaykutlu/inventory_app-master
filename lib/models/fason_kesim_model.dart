@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class FasonWork {
   String? date;
   String? firmName;
   String? pQuality;
-  int? pThickness;
+  double? pThickness;
   int? en;
-  int? boy;
+  String? boy;
   int? kilo;
   String? description;
+  String? writerId;
   FasonWork({
     this.date,
     this.firmName,
@@ -19,17 +19,19 @@ class FasonWork {
     this.boy,
     this.kilo,
     this.description,
+    this.writerId,
   });
 
   FasonWork copyWith({
     String? date,
     String? firmName,
     String? pQuality,
-    int? pThickness,
+    double? pThickness,
     int? en,
-    int? boy,
+    String? boy,
     int? kilo,
     String? description,
+    String? writerId,
   }) {
     return FasonWork(
       date: date ?? this.date,
@@ -40,6 +42,7 @@ class FasonWork {
       boy: boy ?? this.boy,
       kilo: kilo ?? this.kilo,
       description: description ?? this.description,
+      writerId: writerId ?? this.writerId,
     );
   }
 
@@ -53,6 +56,7 @@ class FasonWork {
       'boy': boy,
       'kilo': kilo,
       'description': description,
+      'writerId': writerId
     };
   }
 
@@ -61,12 +65,14 @@ class FasonWork {
       date: map['date'] != null ? map['date'] as String : null,
       firmName: map['firmName'] != null ? map['firmName'] as String : null,
       pQuality: map['pQuality'] != null ? map['pQuality'] as String : null,
-      pThickness: map['pThickness'] != null ? map['pThickness'] as int : null,
+      pThickness:
+          map['pThickness'] != null ? map['pThickness'] as double : null,
       en: map['en'] != null ? map['en'] as int : null,
-      boy: map['boy'] != null ? map['boy'] as int : null,
+      boy: map['boy'] != null ? map['boy'] as String : null,
       kilo: map['kilo'] != null ? map['kilo'] as int : null,
       description:
           map['description'] != null ? map['description'] as String : null,
+      writerId: map['writerId'] != null ? map['writerId'] as String : null,
     );
   }
 
@@ -77,7 +83,7 @@ class FasonWork {
 
   @override
   String toString() {
-    return 'FasonWork(date: $date, firmName: $firmName, pQuality: $pQuality, pThickness: $pThickness, en: $en, boy: $boy, kilo: $kilo, description: $description)';
+    return 'FasonWork(date: $date, firmName: $firmName, pQuality: $pQuality, pThickness: $pThickness, en: $en, boy: $boy, kilo: $kilo, description: $description,writerId: $writerId)';
   }
 
   @override
@@ -91,7 +97,8 @@ class FasonWork {
         other.en == en &&
         other.boy == boy &&
         other.kilo == kilo &&
-        other.description == description;
+        other.description == description &&
+        other.writerId == writerId;
   }
 
   @override

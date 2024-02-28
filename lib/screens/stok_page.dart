@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/components/dropdown_button.dart';
+import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
@@ -58,6 +59,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   );
                 },
               ),
+              const HorizontalDivider(),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: SizedBox(
@@ -292,7 +294,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                                   try {
                                     ref //otomatik documentId ürün ekleme
                                         .read(firebaseProvider)
-                                        .addProductToDb(
+                                        .addProductToStokDb(
                                           inputPro.qualityValue,
                                           productData,
                                         )

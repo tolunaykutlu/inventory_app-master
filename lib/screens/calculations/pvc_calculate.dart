@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
@@ -11,7 +10,7 @@ class PvcAlanCalculatePage extends StatefulWidget {
 }
 
 class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
-  TextEditingController CountController = TextEditingController();
+  TextEditingController countController = TextEditingController();
   TextEditingController hCont = TextEditingController();
   TextEditingController tCont = TextEditingController();
   double freeWeight = 7.85;
@@ -41,7 +40,7 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                           CustomTextFormField(
                               title: "adet",
                               hintText: "0.40",
-                              controller: CountController),
+                              controller: countController),
                           CustomTextFormField(
                               title: "genişlik",
                               hintText: "1200",
@@ -57,11 +56,11 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                               //TODO: hesaplama sayfasına başka hesaplamalar eklenecek /fason sayfası yapılıp datalar getirelecek
                               onPressed: () {
                                 setState(() {
-                                  if (CountController.text != "" &&
+                                  if (countController.text != "" &&
                                       hCont.text != "" &&
                                       tCont.text != "") {
                                     double res =
-                                        double.parse(CountController.text) *
+                                        double.parse(countController.text) *
                                             (double.parse(hCont.text) *
                                                 double.parse(tCont.text));
                                     sonuc = res * freeWeight;
