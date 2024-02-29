@@ -67,6 +67,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                             var incomingProducts =
                                 ref.read(dataProvider).fasons;
                             incomingProducts = snapshot.data;
+                            print(snapshot.data);
 
                             return ListView.builder(
                               shrinkWrap: true,
@@ -97,7 +98,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                     });
                   },
                   child: Text(
-                    "Stok Ekle",
+                    "Fason Ekle",
                     style: AppConsts.getInstance().syneMono(),
                   ))
             ],
@@ -112,7 +113,12 @@ class _FasonPageState extends ConsumerState<FasonPage> {
     return Padding(
         padding: const EdgeInsets.only(top: 5, left: 3, bottom: 5, right: 3),
         child: GestureDetector(
-          onLongPress: () {},
+          onLongPress: () {
+            ref.read(firebaseProvider).deleteDocumentFromFirestore(
+                  "fasons",
+                  fasons[index].id.toString(),
+                );
+          },
           child: Container(
             height: 50,
             decoration: const BoxDecoration(
@@ -125,28 +131,28 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].firmName} x",
+                      "${fasons[index].firmName}|",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].pQuality!} x",
+                      "${fasons[index].pQuality}x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].pThickness} x",
+                      "${fasons[index].pThickness}x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].en} x",
+                      "${fasons[index].en}x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
@@ -226,13 +232,10 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                             setState(() {
                               if (inputPro.qualityValue == "") {
                                 inputPro.qualityValue = "430BA";
-                                //kalite seçilmez ise default değer 430BA
                               }
 
                               //boy boş bırakılırsa Rulo olur
-                              /* if (inputPro.boyValue.text == "") {
-                                  inputPro.boyValue.text = "R";
-                                }
+                              /* 
                                 if (inputPro.thicknessValue.text != "" &&
                                     inputPro.enValue.text != "" &&
                                     inputPro.kiloValue.text != "" &&
@@ -249,6 +252,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                       kilo: int.parse(inputPro.kiloValue.text),
                                       firmName: inputPro.firmaName.text); */
                               fasons = FasonWork(
+                                  id: "",
                                   date: DateTime.timestamp().toString(),
                                   pQuality: inputPro.qualityValue,
                                   pThickness: double.parse(
@@ -287,6 +291,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   },
                                 );
                               }
+                              inputPro.clearControllers();
                             });
                           },
                           child: const Text("kaydet"))

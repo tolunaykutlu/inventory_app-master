@@ -10,6 +10,17 @@ class ProductInputNotifiers extends ChangeNotifier {
   final TextEditingController fiyatValue = TextEditingController();
   final TextEditingController firmaName = TextEditingController();
   final TextEditingController description = TextEditingController();
+
+  void clearControllers() {
+    boyValue.text = "";
+    enValue.text = "";
+    kiloValue.text = "";
+    thicknessValue.text = "";
+    firmaName.text = "";
+    description.text = "";
+    fiyatValue.text = "";
+    notifyListeners();
+  }
 }
 
 final inputProvider = ChangeNotifierProvider<ProductInputNotifiers>((ref) {

@@ -91,6 +91,7 @@ class FirestoreCommands extends ChangeNotifier {
           data['id'] = snapshot.id;
 
           return FasonWork(
+            id: data['id'],
             firmName: data["firmName"],
             boy: data["boy"],
             kilo: data["kilo"],
@@ -127,44 +128,35 @@ class FirestoreCommands extends ChangeNotifier {
     }
   }
 
-  Future<void> deleteDocumentOnLongPress(
-    //bu kullanılmıyor
+  Future<void> deleteDocumentFromFirestore1(
     String collectionName,
-    String docId, {
-    required BuildContext context, // For showing confirmation or feedback
-  }) async {
+  ) async {
+    final documentRef =
+        FirebaseFirestore.instance.collection(collectionName).doc();
+
     try {
-      final FirebaseFirestore firestore = FirebaseFirestore.instance;
-      await firestore.collection(collectionName).doc(docId).delete();
-    } on FirebaseException catch (e) {
-      e.toString();
+      await documentRef.delete();
+    } catch (e) {
+      // Handle error as needed
     }
   }
 
   Future addProductToStokDb(
-    //kalitesine göre dokuman adıver ve ekle
+    //stokDatabaseCollection
     String collectName,
-    ProductModel p,
+    ProductModel product,
   ) async {
     {
-      await _firestoreInstance.collection(collectName).add(p.toMap());
+      await _firestoreInstance.collection(collectName).add(product.toMap());
     }
   }
 
+//fasonDatabaseCollection
   Future addProductToFasonDb(
     FasonWork fason,
   ) async {
     {
       await _firestoreInstance.collection("fasons").add(fason.toMap());
-    }
-  }
-
-  Future addProductToDbColl(
-    String cName,
-    ProductModel p,
-  ) async {
-    {
-      await _firestoreInstance.collection(cName).add(p.toMap());
     }
   }
 }

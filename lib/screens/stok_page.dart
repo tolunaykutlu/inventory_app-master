@@ -21,9 +21,7 @@ class PageThree extends ConsumerStatefulWidget {
 }
 
 class _PageThreeState extends ConsumerState<PageThree> {
-  int hasNullValue = 0;
   ProductModel productData = ProductModel();
-
   final List<String> filters = ["430BA", "430SB", "4302B", "3042B", "304BA"];
   String selectedFilter = "430BA";
 
@@ -44,7 +42,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                     builder: (context) {
                       return AlertDialog(
                           content: SizedBox(
-                        height: context.deviceHeight * 0.3,
+                        height: context.deviceHeight * 0.4,
                         child: Column(
                           children: [
                             selectQualityFilter(filters, 0),
@@ -138,6 +136,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   products[index].quality.toString(),
                   products[index].id.toString(),
                 );
+            print(products[index].id);
           },
           child: Container(
             height: 50,
@@ -207,6 +206,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
     bool isVisible = false;
     bool hasPvc = false;
     var inputPro = ref.read(inputProvider);
+
     return showModalBottomSheet(
       shape: const BeveledRectangleBorder(),
       isScrollControlled: true,
@@ -262,64 +262,56 @@ class _PageThreeState extends ConsumerState<PageThree> {
                       ),
                       ElevatedButton(
                           onPressed: () {
-                            setState(
-                              () {
-                                if (inputPro.qualityValue == "") {
-                                  inputPro.qualityValue = "430BA";
-                                  //kalite seçilmez ise default değer 430BA
-                                }
+                            setState(() {
+                              if (inputPro.qualityValue == "") {
+                                inputPro.qualityValue = "430BA";
+                                //kalite seçilmez ise default değer 430BA
+                              }
+                              if (inputPro.boyValue.text == "") {
+                                inputPro.boyValue.text = "R";
+                              }
 
-                                //boy boş bırakılırsa Rulo olur
-                                if (inputPro.boyValue.text == "") {
-                                  inputPro.boyValue.text = "R";
-                                }
-                                if (inputPro.thicknessValue.text != "" &&
-                                    inputPro.enValue.text != "" &&
-                                    inputPro.kiloValue.text != "" &&
-                                    inputPro.fiyatValue.text == "") {
-                                  inputPro.fiyatValue.text = "0";
-                                  productData = ProductModel(
-                                      id: "",
-                                      hasPvc: hasPvc,
-                                      entryDate:
-                                          ref.read(formattedDateProvider),
-                                      quality: inputPro.qualityValue,
-                                      thickness: double.parse(
-                                              inputPro.thicknessValue.text) /
-                                          100,
-                                      en: int.parse(inputPro.enValue.text),
-                                      boy: inputPro.boyValue.text.toUpperCase(),
-                                      kilo: inputPro.kiloValue.text,
-                                      fiyat: inputPro.fiyatValue.text);
-                                  try {
-                                    ref //otomatik documentId ürün ekleme
-                                        .read(firebaseProvider)
-                                        .addProductToStokDb(
-                                          inputPro.qualityValue,
-                                          productData,
-                                        )
-                                        .then((value) {
-                                      setState(() {
-                                        isVisible = true;
-                                        Future.delayed(
-                                            const Duration(seconds: 1), () {
-                                          setState(() => isVisible = false);
-                                        });
-                                      });
+                              productData = ProductModel(
+                                  hasPvc: hasPvc,
+                                  entryDate: ref.read(formattedDateProvider),
+                                  quality: inputPro.qualityValue,
+                                  thickness: double.parse(
+                                          inputPro.thicknessValue.text) /
+                                      100,
+                                  en: int.parse(inputPro.enValue.text),
+                                  boy: inputPro.boyValue.text.toUpperCase(),
+                                  kilo: inputPro.kiloValue.text,
+                                  fiyat: inputPro.fiyatValue.text);
+
+                              try {
+                                ref //otomatik documentId ürün ekleme
+                                    .read(firebaseProvider)
+                                    .addProductToStokDb(
+                                      inputPro.qualityValue,
+                                      productData,
+                                    )
+                                    .then((value) {
+                                  setState(() {
+                                    isVisible = true;
+                                    Future.delayed(
+                                        const Duration(milliseconds: 80), () {
+                                      setState(() => isVisible = false);
                                     });
-                                  } catch (e) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const AlertDialog(
-                                          title: Text("Yanlış birşeyler oldu"),
-                                        );
-                                      },
+                                  });
+                                });
+                              } catch (e) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                          "Yanlış birşeyler oldu ${e.toString()}"),
                                     );
-                                  }
-                                }
-                              },
-                            );
+                                  },
+                                );
+                              }
+                              inputPro.clearControllers();
+                            });
                           },
                           child: const Text("kaydet"))
                     ],
