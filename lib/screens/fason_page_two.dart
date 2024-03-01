@@ -21,7 +21,8 @@ class FasonPage extends ConsumerStatefulWidget {
 
 class _FasonPageState extends ConsumerState<FasonPage> {
   FasonWork fasons = FasonWork();
-  String? userEmail = FirebaseAuth.instance.currentUser!.email;
+  String? userId = FirebaseAuth.instance.currentUser!.email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,43 +52,9 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               const HorizontalDivider(),
               Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: SizedBox(
-                      height: context.deviceHeight * 0.6,
-                      child: StreamBuilder<List<FasonWork>>(
-                        stream: ref
-                            .read(firebaseProvider)
-                            .getAllFasonDocumentsStreamFromFirestore("fasons"),
-                        builder: (context, AsyncSnapshot snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else if (snapshot.hasData) {
-                            var incomingProducts =
-                                ref.read(dataProvider).fasons;
-                            incomingProducts = snapshot.data;
-                            print(snapshot.data);
-
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: incomingProducts.length,
-                              itemBuilder: (context, index) {
-                                return listViewItems(
-                                    incomingProducts, index, context);
-                              },
-                            );
-                          } else if (snapshot.hasError) {
-                            return Center(
-                              child: Text("Error: ${snapshot.error}"),
-                            );
-                          } else {
-                            return const Center(
-                              child: Text("gelşmedi"),
-                            );
-                          }
-                        },
-                      ))),
+                  child: newMethod(
+                    context,
+                  )),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
@@ -106,6 +73,43 @@ class _FasonPageState extends ConsumerState<FasonPage> {
         ),
       ),
     );
+  }
+
+  SizedBox newMethod(BuildContext context) {
+    return SizedBox(
+        height: context.deviceHeight * 0.6,
+        child: StreamBuilder<List<FasonWork>>(
+          stream: ref
+              .read(firebaseProvider)
+              .getAllFasonDocumentsStreamFromFirestore("fasons"),
+          builder: (context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasData) {
+              var incomingProducts = ref.read(dataProvider).fasons;
+              incomingProducts = snapshot.data;
+              print(snapshot.data);
+
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: incomingProducts.length,
+                itemBuilder: (context, index) {
+                  return listViewItems(incomingProducts, index, context);
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text("Error: ${snapshot.error}"),
+              );
+            } else {
+              return const Center(
+                child: Text("gelşmedi"),
+              );
+            }
+          },
+        ));
   }
 
   Padding listViewItems(
@@ -235,24 +239,10 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                               }
 
                               //boy boş bırakılırsa Rulo olur
-                              /* 
-                                if (inputPro.thicknessValue.text != "" &&
-                                    inputPro.enValue.text != "" &&
-                                    inputPro.kiloValue.text != "" &&
-                                    inputPro.fiyatValue.text == "") {
-                                  inputPro.fiyatValue.text = "0";
-                                  fasons = FasonWork(
-                                      date: "",
-                                      pQuality: inputPro.qualityValue,
-                                      pThickness: double.parse(
-                                              inputPro.thicknessValue.text) /
-                                          100,
-                                      en: int.parse(inputPro.enValue.text),
-                                      boy: inputPro.boyValue.text.toString(),
-                                      kilo: int.parse(inputPro.kiloValue.text),
-                                      firmName: inputPro.firmaName.text); */
+                              if (inputPro.boyValue.text == "") {
+                                inputPro.boyValue.text = "R";
+                              }
                               fasons = FasonWork(
-                                  id: "",
                                   date: DateTime.timestamp().toString(),
                                   pQuality: inputPro.qualityValue,
                                   pThickness: double.parse(
@@ -263,7 +253,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   kilo: int.parse(inputPro.kiloValue.text),
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
-                                  writerId: userEmail);
+                                  writerId: userId ?? "");
                               try {
                                 //TODO: burdabir sıkıntıvar ifleri alınca datalar gidiyor ama boş
                                 //firebase rules yazılacak

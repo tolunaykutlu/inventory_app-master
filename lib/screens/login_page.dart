@@ -70,7 +70,19 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                             .read(authProvider)
                             .signInWithEmailAndPassword(
                                 emailController.text, passwordController.text)
-                            .then((value) => context.go("/mainPage"));
+                            .then((value) {
+                          if (value != null) {
+                            context.go('/mainPage');
+                          }
+                        }).onError((error, stackTrace) {
+                          print(error);
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("$error"),
+                            ),
+                          );
+                        });
                       } else {
                         showDialog(
                           context: context,
