@@ -5,7 +5,7 @@ import 'package:inventory_app/components/app_constants.dart';
 
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.title,
     this.secret = false,
     required this.hintText,
@@ -14,7 +14,8 @@ class CustomTextFormField extends StatefulWidget {
     this.icon,
     this.errText,
     this.maxL = 1,
-  }) : super(key: key);
+    this.iconB,
+  });
 
   final String? Function(String?)? customValitador;
   final String title;
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? icon;
   final String? errText;
   final int maxL;
+  final Widget? iconB;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -44,6 +46,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             obscuringCharacter: "*",
             style: AppConsts.getInstance().syneMono(),
             decoration: InputDecoration(
+              suffix: widget.iconB,
               errorText: widget.errText,
               suffixIcon: widget.icon,
               hintText: widget.hintText,

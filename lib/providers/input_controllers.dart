@@ -10,6 +10,7 @@ class ProductInputNotifiers extends ChangeNotifier {
   final TextEditingController fiyatValue = TextEditingController();
   final TextEditingController firmaName = TextEditingController();
   final TextEditingController description = TextEditingController();
+  final TextEditingController adet = TextEditingController();
 
   void clearControllers() {
     boyValue.text = "";
@@ -19,6 +20,7 @@ class ProductInputNotifiers extends ChangeNotifier {
     firmaName.text = "";
     description.text = "";
     fiyatValue.text = "";
+    adet.text = "";
     notifyListeners();
   }
 }

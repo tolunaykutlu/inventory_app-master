@@ -5,9 +5,11 @@ import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/components/dropdown_button.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
+import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
+import 'package:inventory_app/helpers/date_formatter.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
@@ -90,7 +92,6 @@ class _FasonPageState extends ConsumerState<FasonPage> {
             } else if (snapshot.hasData) {
               var incomingProducts = ref.read(dataProvider).fasons;
               incomingProducts = snapshot.data;
-              print(snapshot.data);
 
               return ListView.builder(
                 shrinkWrap: true,
@@ -142,21 +143,21 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].pQuality}x",
+                      "${fasons[index].quality} x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].pThickness}x",
+                      "${fasons[index].thickness} x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
-                      "${fasons[index].en}x",
+                      "${fasons[index].en} x",
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
@@ -175,8 +176,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return const Text(
-                              "data"); //infoPage(products, index);
+                          return infoPageForFason(fasons, index);
                         },
                       );
                     },
@@ -243,9 +243,9 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                 inputPro.boyValue.text = "R";
                               }
                               fasons = FasonWork(
-                                  date: DateTime.timestamp().toString(),
-                                  pQuality: inputPro.qualityValue,
-                                  pThickness: double.parse(
+                                  entryDate: ref.read(formattedDateProvider),
+                                  quality: inputPro.qualityValue,
+                                  thickness: double.parse(
                                           inputPro.thicknessValue.text) /
                                       100,
                                   en: int.parse(inputPro.enValue.text),
@@ -253,9 +253,10 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   kilo: int.parse(inputPro.kiloValue.text),
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
-                                  writerId: userId ?? "");
+                                  writerId: userId ?? "",
+                                  adet: 0);
+
                               try {
-                                //TODO: burdabir sıkıntıvar ifleri alınca datalar gidiyor ama boş
                                 //firebase rules yazılacak
                                 ref
                                     .read(firebaseProvider)
@@ -265,8 +266,8 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                     .then((value) {
                                   setState(() {
                                     isVisible = true;
-                                    Future.delayed(const Duration(seconds: 1),
-                                        () {
+                                    Future.delayed(
+                                        const Duration(milliseconds: 80), () {
                                       setState(() => isVisible = false);
                                     });
                                   });

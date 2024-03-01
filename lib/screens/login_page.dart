@@ -75,7 +75,6 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                             context.go('/mainPage');
                           }
                         }).onError((error, stackTrace) {
-                          print(error);
                           showDialog(
                             context: context,
                             builder: (context) => AlertDialog(

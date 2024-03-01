@@ -136,7 +136,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   products[index].quality.toString(),
                   products[index].id.toString(),
                 );
-            print(products[index].id);
           },
           child: Container(
             height: 50,

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
@@ -9,17 +8,17 @@ import 'package:inventory_app/models/product_model.dart';
 class FirestoreCommands extends ChangeNotifier {
   final _firestoreInstance = FirebaseFirestore.instance;
 
-  /* Future addDataToFirestore(
-      Map<String, dynamic> data, String collectionName, String docName) async {
+  Future updateDataToFirestore(
+      Map<String, dynamic> data, String docName) async {
     try {
       await _firestoreInstance
-          .collection(collectionName)
+          .collection("fasons")
           .doc(docName)
-          .set(data);
+          .update(data["adet"]);
     } catch (e) {
       throw Exception(e.toString());
     }
-  } */
+  }
 
   /* Future<List<Map<String, dynamic>>> getAllDocumentsFromFirestore(
       String collectionName) async {
@@ -91,13 +90,15 @@ class FirestoreCommands extends ChangeNotifier {
           data['id'] = snapshot.id;
 
           return FasonWork(
+            adet: data["adet"],
+            writerId: data["writerId"],
             id: data['id'],
             firmName: data["firmName"],
             boy: data["boy"],
             kilo: data["kilo"],
-            date: data["date"],
-            pQuality: data["pQuality"],
-            pThickness: data["pThickness"],
+            entryDate: data["entryDate"],
+            quality: data["quality"],
+            thickness: data["thickness"],
             en: data["en"],
             description: data["description"],
           );
@@ -108,10 +109,6 @@ class FirestoreCommands extends ChangeNotifier {
         return []; // empty list for error
       }
     });
-  }
-
-  Future<void> signOut() {
-    return FirebaseAuth.instance.signOut();
   }
 
   Future<void> deleteDocumentFromFirestore(

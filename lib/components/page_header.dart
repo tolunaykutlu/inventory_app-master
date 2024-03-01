@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 //header
 class Header extends StatelessWidget {
   const Header({
-    Key? key,
+    super.key,
     required this.headerText,
     required this.onpress,
-  }) : super(key: key);
+  });
   final String headerText;
   final void Function()? onpress;
 

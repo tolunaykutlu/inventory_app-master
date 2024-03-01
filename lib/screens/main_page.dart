@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_app/screens/calculation_page.dart';
 
-import 'package:inventory_app/screens/fason_page_two.dart';
+import 'package:inventory_app/screens/fason_page.dart';
 
 import 'package:inventory_app/screens/stok_page.dart';
 

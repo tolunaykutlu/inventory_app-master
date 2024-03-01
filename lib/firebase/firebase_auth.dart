@@ -16,6 +16,10 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> signOut() {
+    return FirebaseAuth.instance.signOut();
+  }
+
   Future createAccount(String email, String password) async {
     try {
       final credential =
