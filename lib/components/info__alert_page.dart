@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/custom_textform.dart';
+import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
 import 'package:inventory_app/models/product_model.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
@@ -16,29 +19,22 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
       Column(
         children: [
           Text(
-            product[index].entryDate.toString(),
+            "${product[index].entryDate.toString()} ".toUpperCase(),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            product[index].quality.toString(),
+            "${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            product[index].thickness.toString(),
+            "${product[index].kilo.toString()} kilo",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(
-            product[index].en.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            product[index].boy.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            product[index].kilo.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          if (product[index].adet != null)
+            Text(
+              "${product[index].adet} adet",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           Text(
             "${product[index].fiyat.toString()}\$",
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -70,31 +66,20 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+            "Firma adı ${fasonProduct[index].firmName.toString()} "
+                .toUpperCase(),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
             fasonProduct[index].entryDate.toString(),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            fasonProduct[index].firmName.toString(),
+            "${fasonProduct[index].quality.toString()} x ${fasonProduct[index].thickness.toString()} x ${fasonProduct[index].en.toString()} x ${fasonProduct[index].boy.toString()}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            fasonProduct[index].quality.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            fasonProduct[index].thickness.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            fasonProduct[index].en.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            fasonProduct[index].boy.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(
-            fasonProduct[index].kilo.toString(),
+            "${fasonProduct[index].kilo.toString()} kilo",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
@@ -105,25 +90,40 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
             fasonProduct[index].description.toString(),
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(
-            fasonProduct[index].description.toString(),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
           Consumer(
             builder: (context, ref, child) {
-              return CustomTextFormField(
-                  iconB: IconButton(
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: CustomTextFormField(
+                        title: "adet ",
+                        hintText: "0",
+                        controller: ref.read(inputProvider).adet),
+                  ),
+                  ElevatedButton(
                       onPressed: () {
-                        //TODO: adet güncelleme methodu yazılacak
+                        changeAdet(ref, fasonProduct, index);
+                        ref.read(inputProvider).clearControllers();
                       },
-                      icon: const Icon(Icons.change_circle)),
-                  title: "adet ",
-                  hintText: "0",
-                  controller: ref.read(inputProvider).adet);
+                      child: const Text("adet kaydet"))
+                ],
+              );
             },
           )
         ],
       )
     ],
+  );
+}
+
+changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index) {
+  ref.read(firebaseProvider).updateDataToFirestore(
+    //adet değiştirme methodu
+    {
+      "adet": int.parse(ref.read(inputProvider).adet.text),
+    },
+    fasonProduct[index].id.toString(),
   );
 }

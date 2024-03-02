@@ -11,10 +11,7 @@ class FirestoreCommands extends ChangeNotifier {
   Future updateDataToFirestore(
       Map<String, dynamic> data, String docName) async {
     try {
-      await _firestoreInstance
-          .collection("fasons")
-          .doc(docName)
-          .update(data["adet"]);
+      await _firestoreInstance.collection("fasons").doc(docName).update(data);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -83,7 +80,10 @@ class FirestoreCommands extends ChangeNotifier {
       String collectionName) {
     final collectionRef = FirebaseFirestore.instance.collection(collectionName);
 
-    return collectionRef.snapshots().map((querySnapshot) {
+    return collectionRef
+        .orderBy("entryDate", descending: false)
+        .snapshots()
+        .map((querySnapshot) {
       try {
         return querySnapshot.docs.map((snapshot) {
           final data = snapshot.data();

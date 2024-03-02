@@ -11,7 +11,9 @@ class ProductModel {
   String? kilo;
   String? fiyat;
   bool? hasPvc;
+  int? adet;
   ProductModel({
+    this.id,
     this.entryDate,
     this.quality,
     this.thickness,
@@ -20,7 +22,7 @@ class ProductModel {
     this.kilo,
     this.fiyat,
     this.hasPvc,
-    this.id,
+    this.adet,
   });
 
   ProductModel copyWith({
@@ -33,6 +35,7 @@ class ProductModel {
     String? kilo,
     String? fiyat,
     bool? hasPvc,
+    int? adet,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -44,6 +47,7 @@ class ProductModel {
       kilo: kilo ?? this.kilo,
       fiyat: fiyat ?? this.fiyat,
       hasPvc: hasPvc ?? this.hasPvc,
+      adet: adet ?? this.adet,
     );
   }
 
@@ -58,6 +62,7 @@ class ProductModel {
       'kilo': kilo,
       'fiyat': fiyat,
       'hasPvc': hasPvc,
+      'adet': adet,
     };
   }
 
@@ -72,6 +77,7 @@ class ProductModel {
       kilo: map['kilo'] != null ? map['kilo'] as String : null,
       fiyat: map['fiyat'] != null ? map['fiyat'] as String : null,
       hasPvc: map['hasPvc'] != null ? map['hasPvc'] as bool : null,
+      adet: map['adet'] != null ? map['adet'] as int : null,
     );
   }
 
@@ -82,32 +88,36 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id:$id, entryDate: $entryDate, quality: $quality, thickness: $thickness, en: $en, boy: $boy, kilo: $kilo, fiyat: $fiyat, hasPvc: $hasPvc)';
+    return 'ProductModel(id: $id, entryDate: $entryDate, quality: $quality, thickness: $thickness, en: $en, boy: $boy, kilo: $kilo, fiyat: $fiyat, hasPvc: $hasPvc, adet: $adet)';
   }
 
   @override
   bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
-    return other.entryDate == entryDate &&
+    return other.id == id &&
+        other.entryDate == entryDate &&
         other.quality == quality &&
         other.thickness == thickness &&
         other.en == en &&
         other.boy == boy &&
         other.kilo == kilo &&
         other.fiyat == fiyat &&
-        other.hasPvc == hasPvc;
+        other.hasPvc == hasPvc &&
+        other.adet == adet;
   }
 
   @override
   int get hashCode {
-    return entryDate.hashCode ^
+    return id.hashCode ^
+        entryDate.hashCode ^
         quality.hashCode ^
         thickness.hashCode ^
         en.hashCode ^
         boy.hashCode ^
         kilo.hashCode ^
         fiyat.hashCode ^
-        hasPvc.hashCode;
+        hasPvc.hashCode ^
+        adet.hashCode;
   }
 }

@@ -243,6 +243,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                 inputPro.boyValue.text = "R";
                               }
                               fasons = FasonWork(
+                                  id: "",
                                   entryDate: ref.read(formattedDateProvider),
                                   quality: inputPro.qualityValue,
                                   thickness: double.parse(

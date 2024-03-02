@@ -21,6 +21,7 @@ class ProductInputNotifiers extends ChangeNotifier {
     description.text = "";
     fiyatValue.text = "";
     adet.text = "";
+    adet.text = "";
     notifyListeners();
   }
 }
