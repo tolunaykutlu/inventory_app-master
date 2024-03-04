@@ -14,6 +14,7 @@ class CustomTextFormField extends StatefulWidget {
     this.icon,
     this.errText,
     this.maxL = 1,
+    this.inpuType = TextInputType.text,
   });
 
   final String? Function(String?)? customValitador;
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? icon;
   final String? errText;
   final int maxL;
+  final TextInputType inpuType;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -38,6 +40,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       child: SizedBox(
         height: 50,
         child: TextFormField(
+            keyboardType: widget.inpuType,
+            textInputAction: TextInputAction.next,
             maxLines: widget.maxL,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.customValitador,
@@ -58,6 +62,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                         color: isPwSecret ? Colors.red : Colors.green,
                       ))
                   : null,
+              suffix: widget.icon,
               hintText: widget.hintText,
               labelStyle: AppConsts.getInstance().syneMono(),
               label: Text(widget.title),

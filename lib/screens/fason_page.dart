@@ -34,7 +34,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
           child: Column(
             children: [
               Header(
-                headerText: "Stok Listesi",
+                headerText: "Fason Listesi",
                 onpress: () {
                   showDialog(
                     context: context,
@@ -310,15 +310,25 @@ class BottomSheetTwo extends StatelessWidget {
       child: Column(
         children: [
           CustomTextFormField(
+              inpuType: TextInputType.number,
               title: "Kesim Ölçüsü",
               hintText: "1230",
               controller: inputPro.boyValue),
           CustomTextFormField(
-              title: "Kilo", hintText: "1200", controller: inputPro.kiloValue),
+              inpuType: TextInputType.number,
+              title: "Kilo",
+              hintText: "1200",
+              controller: inputPro.kiloValue),
           CustomTextFormField(
-              maxL: 3,
+              maxL: 1,
               title: "Açıklama",
               hintText: "açıklama",
+              controller: inputPro.description),
+          CustomTextFormField(
+              inpuType: TextInputType.number,
+              maxL: 1,
+              title: "adet",
+              hintText: "adet",
               controller: inputPro.description),
         ],
       ),
@@ -346,12 +356,16 @@ class BottomSheetOne extends StatelessWidget {
                 hintText: "kutlu metal",
                 controller: inputPro.firmaName),
             CustomTextFormField(
+              inpuType: TextInputType.number,
               controller: inputPro.thicknessValue,
               hintText: "0.40",
               title: "Kalinlik",
             ),
             CustomTextFormField(
-                title: "En", hintText: "120", controller: inputPro.enValue)
+                inpuType: TextInputType.number,
+                title: "En",
+                hintText: "120",
+                controller: inputPro.enValue)
           ],
         ));
   }

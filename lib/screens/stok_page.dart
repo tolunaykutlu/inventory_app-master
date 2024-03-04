@@ -274,6 +274,9 @@ class _PageThreeState extends ConsumerState<PageThree> {
                               if (inputPro.boyValue.text == "") {
                                 inputPro.boyValue.text = "R";
                               }
+                              if (inputPro.fiyatValue.text == "") {
+                                inputPro.fiyatValue.text = "0";
+                              }
 
                               productData = ProductModel(
                                   hasPvc: hasPvc,
@@ -344,8 +347,12 @@ class BottomSheetTwo extends StatelessWidget {
           CustomTextFormField(
               title: "Boy", hintText: "1230", controller: inputPro.boyValue),
           CustomTextFormField(
-              title: "Kilo", hintText: "1200", controller: inputPro.kiloValue),
+              inpuType: TextInputType.number,
+              title: "Kilo",
+              hintText: "1200",
+              controller: inputPro.kiloValue),
           CustomTextFormField(
+              inpuType: TextInputType.number,
               title: "fiyat",
               hintText: "alış fiyatı",
               controller: inputPro.fiyatValue),
@@ -371,12 +378,16 @@ class BottomSheetOne extends StatelessWidget {
           children: [
             const DropDownItems(),
             CustomTextFormField(
+              inpuType: TextInputType.number,
               controller: inputPro.thicknessValue,
               hintText: "0.40",
               title: "Kalinlik",
             ),
             CustomTextFormField(
-                title: "En", hintText: "120", controller: inputPro.enValue)
+                inpuType: TextInputType.number,
+                title: "En",
+                hintText: "120",
+                controller: inputPro.enValue)
           ],
         ));
   }

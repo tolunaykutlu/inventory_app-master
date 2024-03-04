@@ -28,10 +28,12 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomTextFormField(
+                  inpuType: TextInputType.emailAddress,
                   title: "E-mail",
                   hintText: "asdwe@gmail.com",
                   controller: emailController),
               CustomTextFormField(
+                  inpuType: TextInputType.text,
                   secret: true,
                   title: "Şifre",
                   hintText: "qwe123",
