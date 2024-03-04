@@ -14,7 +14,6 @@ class CustomTextFormField extends StatefulWidget {
     this.icon,
     this.errText,
     this.maxL = 1,
-    this.iconB,
   });
 
   final String? Function(String?)? customValitador;
@@ -25,13 +24,13 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? icon;
   final String? errText;
   final int maxL;
-  final Widget? iconB;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  bool isPwSecret = true;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,13 +41,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             maxLines: widget.maxL,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: widget.customValitador,
-            obscureText: widget.secret,
+            obscureText: widget.secret == true ? isPwSecret : false,
             obscuringCharacter: "*",
             style: AppConsts.getInstance().syneMono(),
             decoration: InputDecoration(
-              suffix: widget.iconB,
               errorText: widget.errText,
-              suffixIcon: widget.icon,
+              suffixIcon: widget.secret == true
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isPwSecret = !isPwSecret;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: isPwSecret ? Colors.red : Colors.green,
+                      ))
+                  : null,
               hintText: widget.hintText,
               labelStyle: AppConsts.getInstance().syneMono(),
               label: Text(widget.title),

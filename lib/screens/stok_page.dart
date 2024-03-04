@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/app_constants.dart';
@@ -6,6 +9,7 @@ import 'package:inventory_app/components/dropdown_button.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
+import 'package:inventory_app/firebase/firebase_auth.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
 import 'package:inventory_app/extensions/get_size.dart';
@@ -102,6 +106,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.black),
                   onPressed: () {
+                    ref.read(authProvider).signOut;
                     inventoryProductAddSheet(context);
                   },
                   child: Text(

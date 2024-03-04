@@ -4,18 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthProvider extends ChangeNotifier {
-  Future signInAnonymously() async {
-    try {
-      await FirebaseAuth.instance.signInAnonymously();
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case "operation-not-allowed":
-          break;
-        default:
-      }
-    }
-  }
-
   Future<void> signOut() {
     return FirebaseAuth.instance.signOut();
   }

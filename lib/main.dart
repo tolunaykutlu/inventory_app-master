@@ -18,9 +18,9 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
         path: '/',
-        builder: (context, state) => FirebaseAuth.instance.currentUser != null
-            ? const MainPage()
-            : const LoginPageView()),
+        builder: (context, state) => FirebaseAuth.instance.currentUser == null
+            ? const LoginPageView()
+            : const MainPage()),
     GoRoute(
       path: '/Sign',
       builder: (context, state) => const SignInPage(),

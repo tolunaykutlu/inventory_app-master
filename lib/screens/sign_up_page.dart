@@ -18,17 +18,20 @@ TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController rPasswordController = TextEditingController();
 
-class _SignInPageViewState extends ConsumerState<SignInPage> {
-  bool isPwSecret = true;
-
-  bool isVisible() {
-    if (passwordController.text == rPasswordController.text) {
-      return false;
-    } else {
-      return true;
-    }
+bool isMatched() {
+  bool matched = false;
+  if (passwordController.text != "" &&
+      rPasswordController.text != "" &&
+      passwordController.text == rPasswordController.text) {
+    matched = true;
+    return matched;
+  } else {
+    matched = false;
+    return matched;
   }
+}
 
+class _SignInPageViewState extends ConsumerState<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,27 +52,17 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                   hintText: "asdwe@gmail.com",
                   controller: emailController),
               CustomTextFormField(
-                  icon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isPwSecret = !isPwSecret;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.remove_red_eye,
-                        color: isPwSecret ? Colors.red : Colors.green,
-                      )),
-                  secret: isPwSecret,
+                  secret: true,
                   title: "Şifre",
                   hintText: "qwe123",
                   controller: passwordController),
               CustomTextFormField(
-                  secret: isPwSecret,
+                  secret: true,
                   title: "Şifre Tekrarı",
                   hintText: "qwe123",
                   controller: rPasswordController),
               Visibility(
-                visible: isVisible(),
+                visible: isMatched(),
                 child: Text(
                   "Şifreler aynı olmalıdır!!",
                   style: AppConsts.getInstance().syneMono(c: Colors.red),
@@ -84,7 +77,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                     onPressed: () {
                       setState(() {
                         if (EmailValidator.isValid(emailController.text) &&
-                            isVisible() == false) {
+                            isMatched() == true) {
                           ref
                               .read(authProvider)
                               .createAccount(
@@ -100,7 +93,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                                   content: ElevatedButton.icon(
                                       onPressed: () {
                                         setState(() {
-                                          context.go("/");
+                                          context.go("/Login");
                                         });
                                       },
                                       icon:
@@ -114,7 +107,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                           showDialog(
                             context: context,
                             builder: (context) => const AlertDialog(
-                              title: Text("Bütün alanları doldurunuz"),
+                              title: Text("Email yada şifreyi yanlış girdiniz"),
                             ),
                           );
                         }

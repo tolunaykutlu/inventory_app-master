@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/firebase/firebase_auth.dart';
-import 'package:inventory_app/helpers/regex.dart';
 
 class LoginPageView extends ConsumerStatefulWidget {
   const LoginPageView({super.key});
@@ -64,32 +63,20 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.black),
                     onPressed: () {
-                      if (EmailValidator.isValid(emailController.text) &&
-                          passwordController.text != "") {
-                        ref
-                            .read(authProvider)
-                            .signInWithEmailAndPassword(
-                                emailController.text, passwordController.text)
-                            .then((value) {
-                          if (value != null) {
-                            context.go('/mainPage');
-                          }
-                        }).onError((error, stackTrace) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text("$error"),
-                            ),
-                          );
-                        });
-                      } else {
+                      ref
+                          .read(authProvider)
+                          .signInWithEmailAndPassword(
+                              emailController.text, passwordController.text)
+                          .then((value) {
+                        context.go('/mainPage');
+                      }).onError((error, stackTrace) {
                         showDialog(
                           context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text("Bütün alanları doldurunuz"),
+                          builder: (context) => AlertDialog(
+                            title: Text("$error"),
                           ),
                         );
-                      }
+                      });
                     },
                     child: Text(
                       "Giriş Yap",

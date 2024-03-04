@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/app_constants.dart';
@@ -23,7 +22,7 @@ class FasonPage extends ConsumerStatefulWidget {
 
 class _FasonPageState extends ConsumerState<FasonPage> {
   FasonWork fasons = FasonWork();
-  String? userId = FirebaseAuth.instance.currentUser!.email;
+  //String? userId = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +253,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   kilo: int.parse(inputPro.kiloValue.text),
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
-                                  writerId: userId ?? "",
+                                  writerId: "",
                                   adet: 0);
 
                               try {
