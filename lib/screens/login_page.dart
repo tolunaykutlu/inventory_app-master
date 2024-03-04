@@ -49,7 +49,8 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                   ),
                   TextButton(
                       onPressed: () {
-                        context.go("/Sign");
+                        //context.go("/Sign");
+                        ref.read(authProvider).signOut();
                       },
                       child: Text(
                         "Kayıt ol",
@@ -64,32 +65,13 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.black),
                     onPressed: () {
-                      if (EmailValidator.isValid(emailController.text) &&
-                          passwordController.text != "") {
-                        ref
-                            .read(authProvider)
-                            .signInWithEmailAndPassword(
-                                emailController.text, passwordController.text)
-                            .then((value) {
-                          if (value != null) {
-                            context.go('/mainPage');
-                          }
-                        }).onError((error, stackTrace) {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text("$error"),
-                            ),
-                          );
-                        });
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const AlertDialog(
-                            title: Text("Bütün alanları doldurunuz"),
-                          ),
-                        );
-                      }
+                      ref
+                          .read(authProvider)
+                          .signInWithEmailAndPassword(emailController.text,
+                              passwordController.text, context)
+                          .then((value) {
+                        context.go("/mainPage");
+                      });
                     },
                     child: Text(
                       "Giriş Yap",

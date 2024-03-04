@@ -15,6 +15,13 @@ void main() async {
 }
 
 final GoRouter _router = GoRouter(
+  redirect: (context, state) {
+    final isLoggedIn = FirebaseAuth.instance.currentUser != null;
+    if (!isLoggedIn && state.path != '/Sign' && state.path != '/Login') {
+      return '/Login';
+    }
+    return null;
+  },
   routes: [
     GoRoute(
         path: '/',

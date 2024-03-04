@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/app_constants.dart';
@@ -8,6 +7,7 @@ import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/extensions/get_size.dart';
+import 'package:inventory_app/firebase/firebase_auth.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/helpers/date_formatter.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
@@ -23,7 +23,7 @@ class FasonPage extends ConsumerStatefulWidget {
 
 class _FasonPageState extends ConsumerState<FasonPage> {
   FasonWork fasons = FasonWork();
-  String? userId = FirebaseAuth.instance.currentUser!.email;
+  // String? userId = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,8 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               Header(
                 headerText: "Stok Listesi",
                 onpress: () {
-                  showDialog(
+                  ref.read(authProvider).signOut();
+                  /* showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
@@ -48,7 +49,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                         ),
                       ));
                     },
-                  );
+                  ); */
                 },
               ),
               const HorizontalDivider(),
@@ -254,7 +255,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   kilo: int.parse(inputPro.kiloValue.text),
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
-                                  writerId: userId ?? "",
+                                  writerId: "",
                                   adet: 0);
 
                               try {
