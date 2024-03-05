@@ -24,7 +24,16 @@ class PageThree extends ConsumerStatefulWidget {
 
 class _PageThreeState extends ConsumerState<PageThree> {
   ProductModel productData = ProductModel();
-  final List<String> filters = ["430BA", "430SB", "4302B", "3042B", "304BA"];
+  final List<String> filters = [
+    "430BA",
+    "430SB",
+    "4302B",
+    "3042B",
+    "304BA",
+    "201",
+    "GLVNZ",
+    "ALİMİNYUM"
+  ];
   String selectedFilter = "430BA";
 
   @override
