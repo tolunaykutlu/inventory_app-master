@@ -47,7 +47,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             validator: widget.customValitador,
             obscureText: widget.secret == true ? isPwSecret : false,
             obscuringCharacter: "*",
-            style: AppConsts.getInstance().syneMono(),
+            style: AppConsts.syneMono(),
             decoration: InputDecoration(
               errorText: widget.errText,
               suffixIcon: widget.secret == true
@@ -64,7 +64,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   : null,
               suffix: widget.icon,
               hintText: widget.hintText,
-              labelStyle: AppConsts.getInstance().syneMono(),
+              labelStyle: AppConsts.syneMono(),
               label: Text(widget.title),
               focusedErrorBorder: const OutlineInputBorder(
                   borderSide: BorderSide(width: 2, color: Colors.black)),

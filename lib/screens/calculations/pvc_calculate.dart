@@ -32,10 +32,10 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                       title: Center(
                         child: Text(
                           "Metre kare hesabı",
-                          style: AppConsts.getInstance().syneMono(fSize: 25),
+                          style: AppConsts.syneMono(fSize: 25),
                         ),
                       ),
-                      contentTextStyle: AppConsts.getInstance().syneMono(),
+                      contentTextStyle: AppConsts.syneMono(),
                       content: SizedBox(
                         height: context.deviceHeight / 2,
                         child: Column(
@@ -76,16 +76,15 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                                                 content: Text(
                                                     "bütün alanları doldurun",
                                                     style:
-                                                        AppConsts.getInstance()
-                                                            .syneMono()),
+                                                        AppConsts.syneMono()),
                                               ));
                                     }
                                   });
                                 },
                                 child: Text(
                                   "Hesapla",
-                                  style: AppConsts.getInstance()
-                                      .standartText(c: Colors.black, fSize: 20),
+                                  style: AppConsts.standartText(
+                                      c: Colors.black, fSize: 20),
                                 ))
                           ],
                         ),
@@ -97,7 +96,7 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
         },
         child: Text(
           "PVC metre kare hesabı",
-          style: AppConsts.getInstance().syneMono(c: Colors.white, fSize: 20),
+          style: AppConsts.syneMono(c: Colors.white, fSize: 20),
         ));
   }
 }

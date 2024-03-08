@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
@@ -24,10 +25,7 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
             "${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(
-            "${product[index].kilo.toString()} kilo",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          AppConsts.appText("${product[index].kilo} kilo"),
           if (product[index].adet != null)
             Text(
               "${product[index].adet} adet",
@@ -54,17 +52,31 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
                   SizedBox(
                     width: 90,
                     child: CustomTextFormField(
+<<<<<<< HEAD
                         inpuType: TextInputType.number,
+=======
+>>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
                         title: "kilo",
                         hintText: "0",
                         controller: ref.read(inputProvider).adet),
                   ),
+<<<<<<< HEAD
                   ElevatedButton(
                       onPressed: () {
                         changeAdetProduct(ref, product, index);
                         ref.read(inputProvider).clearControllers();
                       },
                       child: const Text("Kilo güncelle"))
+=======
+                  UpdateButton(
+                    buttonName: "Güncelle",
+                    ref: ref,
+                    onPressed: () {
+                      changeAdetProduct(ref, product, index);
+                      ref.read(inputProvider).clearControllers();
+                    },
+                  )
+>>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
                 ],
               );
             },
@@ -73,6 +85,22 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
       )
     ],
   );
+}
+
+class UpdateButton extends StatelessWidget {
+  const UpdateButton({
+    super.key,
+    required this.ref,
+    this.onPressed,
+    required this.buttonName,
+  });
+  final WidgetRef ref;
+  final void Function()? onPressed;
+  final String buttonName;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(onPressed: onPressed, child: Text(buttonName));
+  }
 }
 
 AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
@@ -124,12 +152,14 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
                         hintText: "0",
                         controller: ref.read(inputProvider).adet),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        changeAdet(ref, fasonProduct, index);
-                        ref.read(inputProvider).clearControllers();
-                      },
-                      child: const Text("adet kaydet"))
+                  UpdateButton(
+                    buttonName: "Güncelle",
+                    ref: ref,
+                    onPressed: () {
+                      changeAdet(ref, fasonProduct, index);
+                      ref.read(inputProvider).clearControllers();
+                    },
+                  )
                 ],
               );
             },
@@ -142,20 +172,40 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
 
 changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index) {
   ref.read(firebaseProvider).updateDataToFirestore(
+<<<<<<< HEAD
       //adet değiştirme methodu
       {
         "adet": int.parse(ref.read(inputProvider).adet.text),
       },
       fasonProduct[index].id.toString(),
       "fasons");
+=======
+        "fasons",
+        //adet değiştirme methodu
+        {
+          "adet": int.parse(ref.read(inputProvider).adet.text),
+        },
+        fasonProduct[index].id.toString(),
+      );
+>>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
 }
 
 changeAdetProduct(WidgetRef ref, List<ProductModel> product, int index) {
   ref.read(firebaseProvider).updateDataToFirestore(
+<<<<<<< HEAD
     //TODO:ürünün documentIdsine ulaşılamıyor
 
     {"kilo": ref.read(inputProvider).adet.text},
     product[index].id.toString(),
     product[index].quality.toString(),
   );
+=======
+        product[index].quality.toString(),
+        //adet değiştirme methodu
+        {
+          "kilo": ref.read(inputProvider).adet.text,
+        },
+        product[index].id.toString(),
+      );
+>>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
 }
