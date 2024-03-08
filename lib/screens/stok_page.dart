@@ -46,7 +46,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                       return AlertDialog(
                           backgroundColor: Colors.white,
                           content: SizedBox(
-<<<<<<< HEAD
                             height: context.deviceHeight * 0.50,
                             child: Column(
                               children: [
@@ -55,16 +54,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                               ],
                             ),
                           ));
-=======
-                        height: context.deviceHeight * 0.4,
-                        child: Column(
-                          children: [
-                            for (int i = 0; i < filters.length; i++)
-                              selectQualityFilter(filters, i),
-                          ],
-                        ),
-                      ));
->>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
                     },
                   );
                 },
@@ -119,7 +108,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   },
                   child: Text(
                     "Stok Ekle",
-                    style: AppConsts.syneMono(),
+                    style: AppConsts.getInstance().syneMono(),
                   ))
             ],
           ),
@@ -132,11 +121,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
     return TextButton(
       child: Text(
         f[i],
-<<<<<<< HEAD
         style: AppConsts.getInstance().standartText(),
-=======
-        style: AppConsts.standartText(),
->>>>>>> 656813f9e27efb1fb6ce6af3a20221e3adc6c16d
       ),
       onPressed: () {
         setState(() {
@@ -158,7 +143,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 );
           },
           child: Container(
-            height: 60,
+            height: 50,
             decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -167,38 +152,38 @@ class _PageThreeState extends ConsumerState<PageThree> {
               child: Row(
                 children: [
                   SizedBox(
-                    width: context.deviceWidth * 0.15,
+                    width: 60,
                     child: Text(
                       "${products[index].quality} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: context.deviceWidth * 0.15,
+                    width: 60,
                     child: Text(
                       " ${products[index].thickness!.toStringAsFixed(2)} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: context.deviceWidth * 0.15,
+                    width: 60,
                     child: Text(
                       "${products[index].en} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: context.deviceWidth * 0.15,
+                    width: 60,
                     child: Text(
                       "${products[index].boy}",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: context.deviceWidth * 0.15,
+                    width: 60,
                     child: Text(
                       "${products[index].kilo.toString()} kg",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   IconButton(

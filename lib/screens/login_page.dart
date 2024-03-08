@@ -45,7 +45,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     onPressed: () {},
                     child: Text(
                       "Şifremi Unuttum?",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   TextButton(
@@ -54,7 +54,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                       },
                       child: Text(
                         "Kayıt ol",
-                        style: AppConsts.syneMono(c: Colors.red),
+                        style: AppConsts.getInstance().syneMono(c: Colors.red),
                       ))
                 ],
               ),
@@ -82,7 +82,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     },
                     child: Text(
                       "Giriş Yap",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     )),
               )
             ],

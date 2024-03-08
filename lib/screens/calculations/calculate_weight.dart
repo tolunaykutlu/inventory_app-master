@@ -32,10 +32,10 @@ class _WeightCalculationState extends State<WeightCalculation> {
                       title: Center(
                         child: Text(
                           "Adet kilo hesabı",
-                          style: AppConsts.syneMono(fSize: 25),
+                          style: AppConsts.getInstance().syneMono(fSize: 25),
                         ),
                       ),
-                      contentTextStyle: AppConsts.syneMono(),
+                      contentTextStyle: AppConsts.getInstance().syneMono(),
                       content: SizedBox(
                         height: context.deviceHeight / 2,
                         child: Column(
@@ -74,15 +74,16 @@ class _WeightCalculationState extends State<WeightCalculation> {
                                                 content: Text(
                                                     "bütün alanları doldurun",
                                                     style:
-                                                        AppConsts.syneMono()),
+                                                        AppConsts.getInstance()
+                                                            .syneMono()),
                                               ));
                                     }
                                   });
                                 },
                                 child: Text(
                                   "Hesapla",
-                                  style: AppConsts.standartText(
-                                      c: Colors.black, fSize: 20),
+                                  style: AppConsts.getInstance()
+                                      .standartText(c: Colors.black, fSize: 20),
                                 ))
                           ],
                         ),
@@ -94,7 +95,7 @@ class _WeightCalculationState extends State<WeightCalculation> {
         },
         child: Text(
           "Ağırlık Hesaplama",
-          style: AppConsts.syneMono(fSize: 20),
+          style: AppConsts.getInstance().syneMono(fSize: 20),
         ));
   }
 }

@@ -67,7 +67,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                   },
                   child: Text(
                     "Fason Ekle",
-                    style: AppConsts.syneMono(),
+                    style: AppConsts.getInstance().syneMono(),
                   ))
             ],
           ),
@@ -136,35 +136,35 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                     width: 60,
                     child: Text(
                       "${fasons[index].firmName}|",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${fasons[index].quality} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${fasons[index].thickness} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${fasons[index].en} x",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${fasons[index].boy}",
-                      style: AppConsts.syneMono(),
+                      style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
                   IconButton(

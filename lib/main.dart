@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/firebase_options.dart';
 import 'package:inventory_app/screens/login_page.dart';
 import 'package:inventory_app/screens/main_page.dart';
@@ -49,7 +48,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
-                  textStyle: AppConsts.syneMono(),
                   shape: ContinuousRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   backgroundColor: Colors.green,
@@ -62,8 +60,7 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
               unselectedItemColor: Colors.white,
               backgroundColor: Colors.grey[500],
-              selectedItemColor: Colors.white,
-              selectedIconTheme: const IconThemeData(color: Colors.green)),
+              selectedItemColor: Colors.green),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               foregroundColor: Colors.white, backgroundColor: Colors.black),
           useMaterial3: true,
