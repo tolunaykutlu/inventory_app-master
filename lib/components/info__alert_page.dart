@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
@@ -24,10 +25,7 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
             "${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(
-            "${product[index].kilo.toString()} kilo",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          AppConsts.getInstance().appText("${product[index].kilo} kilo"),
           if (product[index].adet != null)
             Text(
               "${product[index].adet} adet",
@@ -45,7 +43,29 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
               : const Text(
                   "PVC'siz",
                   style: TextStyle(fontWeight: FontWeight.bold),
-                )
+                ),
+          /* Consumer(
+            builder: (context, ref, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: CustomTextFormField(
+                        title: "kilo",
+                        hintText: "0",
+                        controller: ref.read(inputProvider).adet),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        changeAdetProduct(ref, product, index);
+                        ref.read(inputProvider).clearControllers();
+                      },
+                      child: const Text("kilo güncelle"))
+                ],
+              );
+            },
+          ) */
         ],
       )
     ],
@@ -118,10 +138,22 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
 
 changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index) {
   ref.read(firebaseProvider).updateDataToFirestore(
-    //adet değiştirme methodu
-    {
-      "adet": int.parse(ref.read(inputProvider).adet.text),
-    },
-    fasonProduct[index].id.toString(),
-  );
+        "fasons",
+        //adet değiştirme methodu
+        {
+          "adet": int.parse(ref.read(inputProvider).adet.text),
+        },
+        fasonProduct[index].id.toString(),
+      );
+}
+
+changeAdetProduct(WidgetRef ref, List<ProductModel> product, int index) {
+  ref.read(firebaseProvider).updateDataToFirestore(
+        product[index].quality.toString(),
+        //adet değiştirme methodu
+        {
+          "kilo": int.parse(ref.read(inputProvider).adet.text),
+        },
+        product[index].id.toString(),
+      );
 }

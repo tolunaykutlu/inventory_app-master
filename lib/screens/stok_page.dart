@@ -24,20 +24,12 @@ class PageThree extends ConsumerStatefulWidget {
 
 class _PageThreeState extends ConsumerState<PageThree> {
   ProductModel productData = ProductModel();
-  final List<String> filters = [
-    "430BA",
-    "430SB",
-    "4302B",
-    "3042B",
-    "304BA",
-    "201",
-    "GLVNZ",
-    "ALİMİNYUM"
-  ];
+
   String selectedFilter = "430BA";
 
   @override
   Widget build(BuildContext context) {
+    var filters = ref.read(inputProvider).filters;
     return Scaffold(
       body: SingleChildScrollView(
         //singleChileScrollView widgetini kullanarak klavye açıldığında headerı itmesini engelle
@@ -56,11 +48,8 @@ class _PageThreeState extends ConsumerState<PageThree> {
                         height: context.deviceHeight * 0.4,
                         child: Column(
                           children: [
-                            selectQualityFilter(filters, 0),
-                            selectQualityFilter(filters, 1),
-                            selectQualityFilter(filters, 2),
-                            selectQualityFilter(filters, 3),
-                            selectQualityFilter(filters, 4),
+                            for (int i = 0; i < filters.length; i++)
+                              selectQualityFilter(filters, i),
                           ],
                         ),
                       ));
@@ -87,6 +76,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                           var incomingProducts =
                               ref.read(dataProvider).products;
                           incomingProducts = snapshot.data;
+                          print(incomingProducts.length);
 
                           return ListView.builder(
                             shrinkWrap: true,
@@ -129,7 +119,10 @@ class _PageThreeState extends ConsumerState<PageThree> {
 
   TextButton selectQualityFilter(List<String> f, int i) {
     return TextButton(
-      child: Text(f[i]),
+      child: Text(
+        f[i],
+        style: AppConsts.getInstance().standartText(),
+      ),
       onPressed: () {
         setState(() {
           selectedFilter = f[i];
@@ -150,7 +143,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 );
           },
           child: Container(
-            height: 50,
+            height: 60,
             decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -186,13 +179,13 @@ class _PageThreeState extends ConsumerState<PageThree> {
                       style: AppConsts.getInstance().syneMono(),
                     ),
                   ),
-                  SizedBox(
+                  /* SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].kilo.toString()} kg",
                       style: AppConsts.getInstance().syneMono(),
                     ),
-                  ),
+                  ), */
                   IconButton(
                     style: IconButton.styleFrom(
                         foregroundColor: Colors.greenAccent),

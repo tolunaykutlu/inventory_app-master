@@ -11,6 +11,13 @@ class AppConsts {
     );
   }
 
+  Text appText(String text) {
+    return Text(
+      text,
+      style: syneMono(),
+    );
+  }
+
   TextStyle syneMono({Color c = Colors.black, double fSize = 15}) {
     return GoogleFonts.syneMono(
       fontWeight: FontWeight.bold,

@@ -9,40 +9,16 @@ class FirestoreCommands extends ChangeNotifier {
   final _firestoreInstance = FirebaseFirestore.instance;
 
   Future updateDataToFirestore(
-      Map<String, dynamic> data, String docName) async {
+      String collectionName, Map<String, dynamic> data, String docName) async {
     try {
-      await _firestoreInstance.collection("fasons").doc(docName).update(data);
+      await _firestoreInstance
+          .collection(collectionName)
+          .doc(docName)
+          .update(data);
     } catch (e) {
       throw Exception(e.toString());
     }
   }
-
-  /* Future<List<Map<String, dynamic>>> getAllDocumentsFromFirestore(
-      String collectionName) async {
-    final collectionRef = FirebaseFirestore.instance
-        .collection(collectionName); // Replace with your actual collection name
-
-    try {
-      final querySnapshot =
-          await collectionRef.orderBy("entryDate", descending: false).get();
-
-      final documents = querySnapshot.docs.map((snapshot) {
-        final data = snapshot.data();
-
-        //  document ID
-        data['id'] = snapshot.id;
-
-        //DataClass().addProduct(ProductModel.fromMap(data));
-
-        return data;
-      }).toList();
-
-      return documents;
-    } on FirebaseException catch (e) {
-      print(e.message);
-      return [];
-    }
-  } */
 
   Stream<List<ProductModel>> getAllDocumentsStreamFromFirestore(
       String collectionName) {
