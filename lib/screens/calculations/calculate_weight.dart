@@ -32,10 +32,10 @@ class _WeightCalculationState extends State<WeightCalculation> {
                       title: Center(
                         child: Text(
                           "Adet kilo hesabı",
-                          style: AppConsts.getInstance().syneMono(fSize: 25),
+                          style: AppConsts.syneMono(fSize: 25),
                         ),
                       ),
-                      contentTextStyle: AppConsts.getInstance().syneMono(),
+                      contentTextStyle: AppConsts.syneMono(),
                       content: SizedBox(
                         height: context.deviceHeight / 2,
                         child: Column(
@@ -74,16 +74,15 @@ class _WeightCalculationState extends State<WeightCalculation> {
                                                 content: Text(
                                                     "bütün alanları doldurun",
                                                     style:
-                                                        AppConsts.getInstance()
-                                                            .syneMono()),
+                                                        AppConsts.syneMono()),
                                               ));
                                     }
                                   });
                                 },
                                 child: Text(
                                   "Hesapla",
-                                  style: AppConsts.getInstance()
-                                      .standartText(c: Colors.black, fSize: 20),
+                                  style: AppConsts.standartText(
+                                      c: Colors.black, fSize: 20),
                                 ))
                           ],
                         ),
@@ -95,7 +94,7 @@ class _WeightCalculationState extends State<WeightCalculation> {
         },
         child: Text(
           "Ağırlık Hesaplama",
-          style: AppConsts.getInstance().syneMono(fSize: 20),
+          style: AppConsts.syneMono(fSize: 20),
         ));
   }
 }

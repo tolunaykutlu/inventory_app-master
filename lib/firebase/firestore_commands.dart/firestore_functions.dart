@@ -56,7 +56,7 @@ class FirestoreCommands extends ChangeNotifier {
       try {
         return querySnapshot.docs.map((snapshot) {
           final data = snapshot.data();
-          //data['id'] = snapshot.id;
+          data['id'] = snapshot.id;
 
           return ProductModel.fromMap(data);
         }).toList();

@@ -108,7 +108,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   },
                   child: Text(
                     "Stok Ekle",
-                    style: AppConsts.getInstance().syneMono(),
+                    style: AppConsts.syneMono(),
                   ))
             ],
           ),
@@ -121,7 +121,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
     return TextButton(
       child: Text(
         f[i],
-        style: AppConsts.getInstance().standartText(),
+        style: AppConsts.standartText(),
       ),
       onPressed: () {
         setState(() {
@@ -155,35 +155,35 @@ class _PageThreeState extends ConsumerState<PageThree> {
                     width: 60,
                     child: Text(
                       "${products[index].quality} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       " ${products[index].thickness!.toStringAsFixed(2)} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].en} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].boy}",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
                     width: 60,
                     child: Text(
                       "${products[index].kilo.toString()} kg",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   IconButton(

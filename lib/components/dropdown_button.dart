@@ -45,7 +45,7 @@ class _DropDownItemsState extends State<DropDownItems> {
               padding: const EdgeInsets.only(left: 10),
               child: DropdownButton<String>(
                 hint: const Text("kalite"),
-                style: AppConsts.getInstance().syneMono(),
+                style: AppConsts.syneMono(),
                 value: defValue,
                 items: _items.map((String item) {
                   return DropdownMenuItem<String>(
