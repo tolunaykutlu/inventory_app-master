@@ -25,8 +25,11 @@ class _DropDownItemsState extends State<DropDownItems> {
     "430BA",
     "430SB",
     "4302B",
-    "304BA",
     "3042B",
+    "304BA",
+    "201",
+    "GLVNZ",
+    "ALİMİNYUM"
   ];
   String defValue = "430BA";
   @override

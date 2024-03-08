@@ -45,7 +45,30 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
               : const Text(
                   "PVC'siz",
                   style: TextStyle(fontWeight: FontWeight.bold),
-                )
+                ),
+          Consumer(
+            builder: (context, ref, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 90,
+                    child: CustomTextFormField(
+                        inpuType: TextInputType.number,
+                        title: "kilo",
+                        hintText: "0",
+                        controller: ref.read(inputProvider).adet),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        changeAdetProduct(ref, product, index);
+                        ref.read(inputProvider).clearControllers();
+                      },
+                      child: const Text("Kilo güncelle"))
+                ],
+              );
+            },
+          )
         ],
       )
     ],
@@ -96,6 +119,7 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
                   SizedBox(
                     width: 90,
                     child: CustomTextFormField(
+                        inpuType: TextInputType.number,
                         title: "adet ",
                         hintText: "0",
                         controller: ref.read(inputProvider).adet),
@@ -118,10 +142,20 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
 
 changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index) {
   ref.read(firebaseProvider).updateDataToFirestore(
-    //adet değiştirme methodu
-    {
-      "adet": int.parse(ref.read(inputProvider).adet.text),
-    },
-    fasonProduct[index].id.toString(),
+      //adet değiştirme methodu
+      {
+        "adet": int.parse(ref.read(inputProvider).adet.text),
+      },
+      fasonProduct[index].id.toString(),
+      "fasons");
+}
+
+changeAdetProduct(WidgetRef ref, List<ProductModel> product, int index) {
+  ref.read(firebaseProvider).updateDataToFirestore(
+    //TODO:ürünün documentIdsine ulaşılamıyor
+
+    {"kilo": ref.read(inputProvider).adet.text},
+    product[index].id.toString(),
+    product[index].quality.toString(),
   );
 }

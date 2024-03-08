@@ -9,9 +9,9 @@ class FirestoreCommands extends ChangeNotifier {
   final _firestoreInstance = FirebaseFirestore.instance;
 
   Future updateDataToFirestore(
-      Map<String, dynamic> data, String docName) async {
+      Map<String, dynamic> data, String docName, String colName) async {
     try {
-      await _firestoreInstance.collection("fasons").doc(docName).update(data);
+      await _firestoreInstance.collection(colName).doc(docName).update(data);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -50,27 +50,17 @@ class FirestoreCommands extends ChangeNotifier {
 
     return collectionRef
         .orderBy("entryDate", descending: false)
+        .limit(25)
         .snapshots()
         .map((querySnapshot) {
       try {
         return querySnapshot.docs.map((snapshot) {
           final data = snapshot.data();
-          data['id'] = snapshot.id;
+          //data['id'] = snapshot.id;
 
-          return ProductModel(
-              id: data["id"],
-              boy: data["boy"],
-              en: data["en"],
-              entryDate: data["entryDate"],
-              fiyat: data["fiyat"],
-              hasPvc: data["hasPvc"],
-              kilo: data["kilo"],
-              quality: data["quality"],
-              thickness: data["thickness"]);
+          return ProductModel.fromMap(data);
         }).toList();
       } catch (e) {
-        // Handle error
-
         return []; // empty list for error
       }
     });
@@ -82,6 +72,7 @@ class FirestoreCommands extends ChangeNotifier {
 
     return collectionRef
         .orderBy("entryDate", descending: false)
+        .limit(25)
         .snapshots()
         .map((querySnapshot) {
       try {

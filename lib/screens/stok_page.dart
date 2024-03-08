@@ -24,20 +24,12 @@ class PageThree extends ConsumerStatefulWidget {
 
 class _PageThreeState extends ConsumerState<PageThree> {
   ProductModel productData = ProductModel();
-  final List<String> filters = [
-    "430BA",
-    "430SB",
-    "4302B",
-    "3042B",
-    "304BA",
-    "201",
-    "GLVNZ",
-    "ALİMİNYUM"
-  ];
+
   String selectedFilter = "430BA";
 
   @override
   Widget build(BuildContext context) {
+    var filters = ref.read(inputProvider).filters;
     return Scaffold(
       body: SingleChildScrollView(
         //singleChileScrollView widgetini kullanarak klavye açıldığında headerı itmesini engelle
@@ -52,18 +44,16 @@ class _PageThreeState extends ConsumerState<PageThree> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
+                          backgroundColor: Colors.white,
                           content: SizedBox(
-                        height: context.deviceHeight * 0.4,
-                        child: Column(
-                          children: [
-                            selectQualityFilter(filters, 0),
-                            selectQualityFilter(filters, 1),
-                            selectQualityFilter(filters, 2),
-                            selectQualityFilter(filters, 3),
-                            selectQualityFilter(filters, 4),
-                          ],
-                        ),
-                      ));
+                            height: context.deviceHeight * 0.50,
+                            child: Column(
+                              children: [
+                                for (int i = 0; i < filters.length; i++)
+                                  selectQualityFilter(filters, i),
+                              ],
+                            ),
+                          ));
                     },
                   );
                 },
@@ -129,7 +119,10 @@ class _PageThreeState extends ConsumerState<PageThree> {
 
   TextButton selectQualityFilter(List<String> f, int i) {
     return TextButton(
-      child: Text(f[i]),
+      child: Text(
+        f[i],
+        style: AppConsts.getInstance().standartText(),
+      ),
       onPressed: () {
         setState(() {
           selectedFilter = f[i];

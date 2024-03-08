@@ -12,6 +12,17 @@ class ProductInputNotifiers extends ChangeNotifier {
   final TextEditingController description = TextEditingController();
   final TextEditingController adet = TextEditingController();
 
+  final List<String> filters = [
+    "430BA",
+    "430SB",
+    "4302B",
+    "3042B",
+    "304BA",
+    "201",
+    "GLVNZ",
+    "ALİMİNYUM"
+  ];
+
   void clearControllers() {
     boyValue.text = "";
     enValue.text = "";
