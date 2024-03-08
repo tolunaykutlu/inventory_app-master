@@ -5,6 +5,7 @@ import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/components/dropdown_button.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
+import 'package:inventory_app/components/list_items.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
@@ -124,7 +125,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                 );
           },
           child: Container(
-            height: 50,
+            height: 60,
             decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -132,41 +133,11 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               padding: const EdgeInsets.only(left: 4, right: 4),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${fasons[index].firmName}|",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${fasons[index].quality} x",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${fasons[index].thickness} x",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${fasons[index].en} x",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${fasons[index].boy}",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
+                  ListItems(item: fasons[index].firmName!.toUpperCase()),
+                  ListItems(item: " ${fasons[index].quality} x"),
+                  ListItems(item: " ${fasons[index].thickness} x"),
+                  ListItems(item: " ${fasons[index].en} x"),
+                  ListItems(item: " ${fasons[index].boy}"),
                   IconButton(
                     style: IconButton.styleFrom(
                         foregroundColor: Colors.greenAccent),

@@ -60,7 +60,8 @@ class MyApp extends StatelessWidget {
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
               unselectedItemColor: Colors.white,
               backgroundColor: Colors.grey[500],
-              selectedItemColor: Colors.green),
+              selectedItemColor: Colors.white,
+              selectedIconTheme: const IconThemeData(color: Colors.green)),
           floatingActionButtonTheme: const FloatingActionButtonThemeData(
               foregroundColor: Colors.white, backgroundColor: Colors.black),
           useMaterial3: true,

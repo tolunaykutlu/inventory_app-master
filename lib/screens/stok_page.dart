@@ -6,6 +6,7 @@ import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/components/dropdown_button.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
+import 'package:inventory_app/components/list_items.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/firebase/firebase_auth.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
@@ -143,48 +144,28 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 );
           },
           child: Container(
-            height: 50,
+            height: 60,
             decoration: const BoxDecoration(
                 color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(5))),
+                borderRadius: BorderRadius.all(Radius.circular(8))),
             child: Padding(
               padding: const EdgeInsets.only(left: 4, right: 4),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${products[index].quality} x",
-                      style: AppConsts.syneMono(),
-                    ),
+                  ListItems(
+                    item: "${products[index].quality} x",
                   ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      " ${products[index].thickness!.toStringAsFixed(2)} x",
-                      style: AppConsts.syneMono(),
-                    ),
+                  ListItems(
+                      item:
+                          " ${products[index].thickness!.toStringAsFixed(2)} x"),
+                  ListItems(
+                    item: " ${products[index].en} x",
                   ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${products[index].en} x",
-                      style: AppConsts.syneMono(),
-                    ),
+                  ListItems(
+                    item: "${products[index].boy} x",
                   ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${products[index].boy}",
-                      style: AppConsts.syneMono(),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 60,
-                    child: Text(
-                      "${products[index].kilo.toString()} kg",
-                      style: AppConsts.syneMono(),
-                    ),
+                  ListItems(
+                    item: "${products[index].kilo}",
                   ),
                   IconButton(
                     style: IconButton.styleFrom(
