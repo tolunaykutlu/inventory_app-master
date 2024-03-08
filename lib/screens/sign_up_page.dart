@@ -65,7 +65,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                 visible: isMatched(),
                 child: Text(
                   "Şifreler aynı olmalıdır!!",
-                  style: AppConsts.getInstance().syneMono(c: Colors.red),
+                  style: AppConsts.syneMono(c: Colors.red),
                 ),
               ),
               Padding(
@@ -115,7 +115,7 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                     },
                     child: Text(
                       "Kayıt ol",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     )),
               )
             ],

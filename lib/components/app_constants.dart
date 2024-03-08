@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppConsts {
-  TextStyle standartText({Color c = Colors.black, double fSize = 15}) {
+  static TextStyle standartText({Color c = Colors.black, double fSize = 15}) {
     return TextStyle(
       fontFamily: "Jua",
       color: c,
@@ -11,14 +11,14 @@ class AppConsts {
     );
   }
 
-  Text appText(String text) {
+  static Text appText(String text) {
     return Text(
       text,
       style: syneMono(),
     );
   }
 
-  TextStyle syneMono({Color c = Colors.black, double fSize = 15}) {
+  static TextStyle syneMono({Color c = Colors.black, double fSize = 15}) {
     return GoogleFonts.syneMono(
       fontWeight: FontWeight.bold,
       fontSize: fSize,
@@ -28,9 +28,7 @@ class AppConsts {
     );
   }
 
-  static final AppConsts _instance = AppConsts._internal();
+  // Singleton pattern removed (not needed for direct usage)
 
-  factory AppConsts.getInstance() => _instance;
-
-  AppConsts._internal(); // Özel yapıcı doğrudan örneklemeyi engeller
+  AppConsts._internal(); // Private constructor (remains for completeness)
 }

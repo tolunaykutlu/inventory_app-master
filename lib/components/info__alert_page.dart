@@ -25,7 +25,7 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
             "${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          AppConsts.getInstance().appText("${product[index].kilo} kilo"),
+          AppConsts.appText("${product[index].kilo} kilo"),
           if (product[index].adet != null)
             Text(
               "${product[index].adet} adet",
@@ -44,7 +44,7 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
                   "PVC'siz",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-          /* Consumer(
+          Consumer(
             builder: (context, ref, child) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,20 +56,38 @@ AlertDialog infoPage(List<ProductModel> product, int index) {
                         hintText: "0",
                         controller: ref.read(inputProvider).adet),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        changeAdetProduct(ref, product, index);
-                        ref.read(inputProvider).clearControllers();
-                      },
-                      child: const Text("kilo güncelle"))
+                  UpdateButton(
+                    buttonName: "Güncelle",
+                    ref: ref,
+                    onPressed: () {
+                      changeAdetProduct(ref, product, index);
+                      ref.read(inputProvider).clearControllers();
+                    },
+                  )
                 ],
               );
             },
-          ) */
+          )
         ],
       )
     ],
   );
+}
+
+class UpdateButton extends StatelessWidget {
+  const UpdateButton({
+    super.key,
+    required this.ref,
+    this.onPressed,
+    required this.buttonName,
+  });
+  final WidgetRef ref;
+  final void Function()? onPressed;
+  final String buttonName;
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(onPressed: onPressed, child: Text(buttonName));
+  }
 }
 
 AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
@@ -120,12 +138,14 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
                         hintText: "0",
                         controller: ref.read(inputProvider).adet),
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        changeAdet(ref, fasonProduct, index);
-                        ref.read(inputProvider).clearControllers();
-                      },
-                      child: const Text("adet kaydet"))
+                  UpdateButton(
+                    buttonName: "Güncelle",
+                    ref: ref,
+                    onPressed: () {
+                      changeAdet(ref, fasonProduct, index);
+                      ref.read(inputProvider).clearControllers();
+                    },
+                  )
                 ],
               );
             },
@@ -152,7 +172,7 @@ changeAdetProduct(WidgetRef ref, List<ProductModel> product, int index) {
         product[index].quality.toString(),
         //adet değiştirme methodu
         {
-          "kilo": int.parse(ref.read(inputProvider).adet.text),
+          "kilo": ref.read(inputProvider).adet.text,
         },
         product[index].id.toString(),
       );

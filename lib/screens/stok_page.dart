@@ -76,7 +76,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                           var incomingProducts =
                               ref.read(dataProvider).products;
                           incomingProducts = snapshot.data;
-                          print(incomingProducts.length);
 
                           return ListView.builder(
                             shrinkWrap: true,
@@ -108,7 +107,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                   },
                   child: Text(
                     "Stok Ekle",
-                    style: AppConsts.getInstance().syneMono(),
+                    style: AppConsts.syneMono(),
                   ))
             ],
           ),
@@ -121,7 +120,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
     return TextButton(
       child: Text(
         f[i],
-        style: AppConsts.getInstance().standartText(),
+        style: AppConsts.standartText(),
       ),
       onPressed: () {
         setState(() {
@@ -152,40 +151,40 @@ class _PageThreeState extends ConsumerState<PageThree> {
               child: Row(
                 children: [
                   SizedBox(
-                    width: 60,
+                    width: context.deviceWidth * 0.15,
                     child: Text(
                       "${products[index].quality} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: 60,
+                    width: context.deviceWidth * 0.15,
                     child: Text(
                       " ${products[index].thickness!.toStringAsFixed(2)} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: 60,
+                    width: context.deviceWidth * 0.15,
                     child: Text(
                       "${products[index].en} x",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
                   SizedBox(
-                    width: 60,
+                    width: context.deviceWidth * 0.15,
                     child: Text(
                       "${products[index].boy}",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
                   ),
-                  /* SizedBox(
-                    width: 60,
+                  SizedBox(
+                    width: context.deviceWidth * 0.15,
                     child: Text(
                       "${products[index].kilo.toString()} kg",
-                      style: AppConsts.getInstance().syneMono(),
+                      style: AppConsts.syneMono(),
                     ),
-                  ), */
+                  ),
                   IconButton(
                     style: IconButton.styleFrom(
                         foregroundColor: Colors.greenAccent),
