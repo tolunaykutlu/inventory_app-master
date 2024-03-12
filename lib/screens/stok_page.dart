@@ -13,7 +13,6 @@ import 'package:inventory_app/providers/data_controllers.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
-import 'package:inventory_app/helpers/date_formatter.dart';
 import 'package:inventory_app/models/product_model.dart';
 
 class PageThree extends ConsumerStatefulWidget {
@@ -162,10 +161,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                     item: " ${products[index].en} x",
                   ),
                   ListItems(
-                    item: "${products[index].boy} x",
-                  ),
-                  ListItems(
-                    item: "${products[index].kilo}",
+                    item: "${products[index].boy} ",
                   ),
                   IconButton(
                     style: IconButton.styleFrom(
@@ -261,11 +257,10 @@ class _PageThreeState extends ConsumerState<PageThree> {
 
                               productData = ProductModel(
                                   hasPvc: hasPvc,
-                                  entryDate: ref.read(formattedDateProvider),
+                                  entryDate: DateTime.timestamp().toString(),
                                   quality: inputPro.qualityValue,
                                   thickness: double.parse(
-                                          inputPro.thicknessValue.text) /
-                                      100,
+                                      inputPro.thicknessValue.text),
                                   en: int.parse(inputPro.enValue.text),
                                   boy: inputPro.boyValue.text.toUpperCase(),
                                   kilo: inputPro.kiloValue.text,

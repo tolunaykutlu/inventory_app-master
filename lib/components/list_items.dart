@@ -9,11 +9,13 @@ class ListItems extends StatelessWidget {
   final String item;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 62,
-      child: Text(
-        item,
-        style: AppConsts.syneMono(),
+    return Expanded(
+      flex: 1,
+      child: SizedBox(
+        child: Text(
+          item,
+          style: AppConsts.syneMono(),
+        ),
       ),
     );
   }

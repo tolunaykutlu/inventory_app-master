@@ -9,7 +9,6 @@ import 'package:inventory_app/components/list_items.dart';
 import 'package:inventory_app/components/page_header.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
-import 'package:inventory_app/helpers/date_formatter.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
 import 'package:inventory_app/providers/data_controllers.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
@@ -136,8 +135,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                   ListItems(item: fasons[index].firmName!.toUpperCase()),
                   ListItems(item: " ${fasons[index].quality} x"),
                   ListItems(item: " ${fasons[index].thickness} x"),
-                  ListItems(item: " ${fasons[index].en} x"),
-                  ListItems(item: " ${fasons[index].boy}"),
+                  ListItems(item: " ${fasons[index].en}R"),
                   IconButton(
                     style: IconButton.styleFrom(
                         foregroundColor: Colors.greenAccent),
@@ -214,11 +212,10 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                               }
                               fasons = FasonWork(
                                   id: "",
-                                  entryDate: ref.read(formattedDateProvider),
+                                  entryDate: DateTime.timestamp().toString(),
                                   quality: inputPro.qualityValue,
                                   thickness: double.parse(
-                                          inputPro.thicknessValue.text) /
-                                      100,
+                                      inputPro.thicknessValue.text),
                                   en: int.parse(inputPro.enValue.text),
                                   boy: inputPro.boyValue.text.toString(),
                                   kilo: int.parse(inputPro.kiloValue.text),
@@ -300,7 +297,7 @@ class BottomSheetTwo extends StatelessWidget {
               maxL: 1,
               title: "adet",
               hintText: "adet",
-              controller: inputPro.description),
+              controller: inputPro.adet),
         ],
       ),
     );

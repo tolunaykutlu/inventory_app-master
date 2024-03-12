@@ -71,8 +71,8 @@ class FirestoreCommands extends ChangeNotifier {
     final collectionRef = FirebaseFirestore.instance.collection(collectionName);
 
     return collectionRef
-        .orderBy("entryDate", descending: false)
-        .limit(25)
+        .orderBy("entryDate", descending: true)
+        .limit(15)
         .snapshots()
         .map((querySnapshot) {
       try {
@@ -145,6 +145,15 @@ class FirestoreCommands extends ChangeNotifier {
   ) async {
     {
       await _firestoreInstance.collection("fasons").add(fason.toMap());
+    }
+  }
+
+// kayıt olan kullanıcıyı db ye ekle
+  Future addUsersToDb(String email, String password, String? uid) async {
+    {
+      await _firestoreInstance
+          .collection("users")
+          .add({"e-mail": email, "password": password, "uid": uid});
     }
   }
 }
