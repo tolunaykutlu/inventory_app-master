@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_app/components/app_constants.dart';
+import 'package:inventory_app/extensions/get_size.dart';
 
 class ListItems extends StatelessWidget {
   const ListItems({
@@ -14,7 +15,8 @@ class ListItems extends StatelessWidget {
       child: SizedBox(
         child: Text(
           item,
-          style: AppConsts.syneMono(),
+          style: AppConsts.standartText(
+              fSize: context.deviceWidth > 750 ? 35 : 15),
         ),
       ),
     );

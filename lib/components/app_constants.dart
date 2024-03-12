@@ -28,7 +28,5 @@ class AppConsts {
     );
   }
 
-  // Singleton pattern removed (not needed for direct usage)
-
   AppConsts._internal(); // Private constructor (remains for completeness)
 }
