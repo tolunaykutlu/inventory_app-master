@@ -57,7 +57,6 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                             ),
                             ElevatedButton(
                                 //TODO: hesaplama sayfasına başka hesaplamalar eklenecek
-                                ///fason sayfası yapılıp datalar getirelecek
                                 //internete bağlı olup olmadığımıza göre ekran
                                 onPressed: () {
                                   setState(() {

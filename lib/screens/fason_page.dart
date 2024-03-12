@@ -36,7 +36,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               Header(
                 headerText: "Fason Listesi",
                 onpress: () {
-                  showDialog(
+                  /* showDialog(
                     context: context,
                     builder: (context) {
                       return AlertDialog(
@@ -47,7 +47,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                         ),
                       ));
                     },
-                  );
+                  ); */
                 },
               ),
               const HorizontalDivider(),
@@ -132,10 +132,18 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               padding: const EdgeInsets.only(left: 4, right: 4),
               child: Row(
                 children: [
-                  ListItems(item: fasons[index].firmName!.toUpperCase()),
-                  ListItems(item: " ${fasons[index].quality} x"),
-                  ListItems(item: " ${fasons[index].thickness} x"),
-                  ListItems(item: " ${fasons[index].en}R"),
+                  ListItems(
+                    item: fasons[index].firmName!.toUpperCase(),
+                  ),
+                  ListItems(
+                    item: " ${fasons[index].quality} x",
+                  ),
+                  ListItems(
+                    item: " ${fasons[index].thickness} x",
+                  ),
+                  ListItems(
+                    item: " ${fasons[index].en}R",
+                  ),
                   IconButton(
                     style: IconButton.styleFrom(
                         foregroundColor: Colors.greenAccent),

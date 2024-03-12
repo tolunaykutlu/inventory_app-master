@@ -6,12 +6,14 @@ class ListItems extends StatelessWidget {
   const ListItems({
     super.key,
     required this.item,
+    this.flexx = 1,
   });
   final String item;
+  final int flexx;
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 1,
+      flex: flexx,
       child: SizedBox(
         child: Text(
           item,

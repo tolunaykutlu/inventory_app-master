@@ -28,6 +28,9 @@ class _DropDownItemsState extends State<DropDownItems> {
     "3042B",
     "304BA",
     "201",
+    "301",
+    "DKP",
+    "PİRİNC",
     "GLVNZ",
     "ALİMİNYUM"
   ];

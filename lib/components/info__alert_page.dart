@@ -78,7 +78,7 @@ class DialogText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      item.toUpperCase(),
+      item,
       style: const TextStyle(fontWeight: FontWeight.bold),
     );
   }
