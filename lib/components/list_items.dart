@@ -18,7 +18,7 @@ class ListItems extends StatelessWidget {
         child: Text(
           item,
           style: AppConsts.standartText(
-              fSize: context.deviceWidth > 750 ? 35 : 15),
+              fSize: context.deviceWidth > 500 ? 20 : 15),
         ),
       ),
     );

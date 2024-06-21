@@ -1,71 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/custom_textform.dart';
+import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
 import 'package:inventory_app/models/product_model.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
 
-AlertDialog infoPage(List<ProductModel> product, int index) {
-  return AlertDialog(
-    backgroundColor: Colors.white,
-    title: const Center(child: Text("Malzeme Bilgileri")),
-    shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8))),
-    actionsAlignment: MainAxisAlignment.center,
-    actions: [
-      Column(
-        children: [
-          DialogText(
-            item: product[index].entryDate.toString(),
-          ),
-          DialogText(
-            item:
-                "${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
-          ),
-          DialogText(
-            item: "${product[index].kilo.toString()} kilo",
-          ),
-          if (product[index].adet != null)
+SizedBox infoPage(List<ProductModel> product, int index, BuildContext context) {
+  return SizedBox(
+    height: context.deviceHeight / 2,
+    child: AlertDialog(
+      backgroundColor: Colors.white,
+      title: const Center(child: Text("Malzeme Bilgileri")),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8))),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        Column(
+          children: [
             DialogText(
-              item: "${product[index].adet} adet",
+              item: product[index].entryDate.toString(),
             ),
-          DialogText(
-            item: "${product[index].fiyat.toString()}\$",
-          ),
-          product[index].hasPvc != false
-              ? const DialogText(
-                  item: "PVC var",
-                )
-              : const DialogText(
-                  item: "PVC yok",
-                ),
-          Consumer(
-            builder: (context, ref, child) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 90,
-                    child: CustomTextFormField(
-                        inpuType: TextInputType.number,
-                        title: "kilo",
-                        hintText: "0",
-                        controller: ref.read(inputProvider).adet),
+            DialogText(
+              item:
+                  "Ebat : ${product[index].quality.toString()} x ${product[index].thickness.toString()} x ${product[index].en.toString()} x ${product[index].boy.toString()}",
+            ),
+            DialogText(
+              item: "Kilo : ${product[index].kilo.toString()} kilo",
+            ),
+            if (product[index].adet != null)
+              DialogText(
+                item: "Adet : ${product[index].adet} adet",
+              ),
+            DialogText(
+              item: "Fiyat : ${product[index].fiyat.toString()}\$",
+            ),
+            product[index].hasPvc != false
+                ? const DialogText(
+                    item: "PVC var",
+                  )
+                : const DialogText(
+                    item: "PVC yok",
                   ),
-                  ElevatedButton(
-                      onPressed: () {
-                        changeAdetProduct(ref, product, index);
-                        ref.read(inputProvider).clearControllers();
-                      },
-                      child: const Text("Kilo güncelle"))
-                ],
-              );
-            },
-          )
-        ],
-      )
-    ],
+            Consumer(
+              builder: (context, ref, child) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 90,
+                      child: CustomTextFormField(
+                          inpuType: TextInputType.number,
+                          title: "kilo",
+                          hintText: "0",
+                          controller: ref.read(inputProvider).adet),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          changeAdetProduct(ref, product, index);
+                          ref.read(inputProvider).clearControllers();
+                        },
+                        child: const Text("Kilo güncelle"))
+                  ],
+                );
+              },
+            )
+          ],
+        )
+      ],
+    ),
   );
 }
 
@@ -96,14 +100,16 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DialogText(
-              item: "Firma adı : ${fasonProduct[index].firmName.toString()} "
+              item: "Firma : ${fasonProduct[index].firmName.toString()} "
                   .toUpperCase()),
-          DialogText(item: fasonProduct[index].entryDate.toString()),
+          DialogText(
+              item: "Tarih : ${fasonProduct[index].entryDate.toString()}"),
           DialogText(
               item:
-                  "${fasonProduct[index].quality.toString()} x ${fasonProduct[index].thickness.toString()} x ${fasonProduct[index].en.toString()} x ${fasonProduct[index].boy.toString()}"),
-          DialogText(item: "${fasonProduct[index].kilo.toString()} kilo"),
-          DialogText(item: "${fasonProduct[index].adet} adet"),
+                  "Ebat : ${fasonProduct[index].quality.toString()} x ${fasonProduct[index].thickness.toString()} x ${fasonProduct[index].en.toString()} x ${fasonProduct[index].boy.toString()}"),
+          DialogText(
+              item: "Kilo : ${fasonProduct[index].kilo.toString()} kilo"),
+          DialogText(item: "Adet : ${fasonProduct[index].adet} adet"),
           DialogText(item: fasonProduct[index].description.toString()),
           Consumer(
             builder: (context, ref, child) {
@@ -120,7 +126,7 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        changeAdet(ref, fasonProduct, index);
+                        changeAdet(ref, fasonProduct, index, context);
                         ref.read(inputProvider).clearControllers();
                       },
                       child: const Text("adet güncelle"))
@@ -134,14 +140,25 @@ AlertDialog infoPageForFason(List<FasonWork> fasonProduct, int index) {
   );
 }
 
-changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index) {
-  ref.read(firebaseProvider).updateDataToFirestore(
-      //adet değiştirme methodu
-      {
-        "adet": int.parse(ref.read(inputProvider).adet.text),
-      },
-      fasonProduct[index].id.toString(),
-      "fasons");
+changeAdet(WidgetRef ref, List<FasonWork> fasonProduct, int index,
+    BuildContext context) {
+  int i = int.parse(ref.read(inputProvider).adet.text);
+  if (i >= 0) {
+    ref.read(firebaseProvider).updateDataToFirestore(
+        //adet değiştirme methodu
+        {
+          "adet": i,
+        },
+        fasonProduct[index].id.toString(),
+        "fasons").whenComplete(() => showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              title: Text("Adet başarıyla değişti"),
+            );
+          },
+        ));
+  }
 }
 
 changeAdetProduct(WidgetRef ref, List<ProductModel> product, int index) {

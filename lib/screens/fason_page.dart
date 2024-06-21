@@ -22,7 +22,6 @@ class FasonPage extends ConsumerStatefulWidget {
 
 class _FasonPageState extends ConsumerState<FasonPage> {
   FasonWork fasons = FasonWork();
-  //String? userId = FirebaseAuth.instance.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +34,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
             children: [
               Header(
                 headerText: "Fason Listesi",
-                onpress: () {
-                  /* showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                          content: SizedBox(
-                        height: context.deviceHeight * 0.3,
-                        child: const Column(
-                          children: [],
-                        ),
-                      ));
-                    },
-                  ); */
-                },
+                onpress: () {},
               ),
               const HorizontalDivider(),
               Padding(
@@ -61,9 +47,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.black),
                   onPressed: () {
-                    setState(() {
-                      inventoryProductAddSheet(context);
-                    });
+                    inventoryProductAddSheet(context);
                   },
                   child: Text(
                     "Fason Ekle",
@@ -117,6 +101,14 @@ class _FasonPageState extends ConsumerState<FasonPage> {
     return Padding(
         padding: const EdgeInsets.only(top: 5, left: 3, bottom: 5, right: 3),
         child: GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return infoPageForFason(fasons, index);
+              },
+            );
+          },
           onLongPress: () {
             ref.read(firebaseProvider).deleteDocumentFromFirestore(
                   "fasons",
@@ -124,7 +116,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                 );
           },
           child: Container(
-            height: 60,
+            height: context.deviceWidth > 500 ? 80 : 60,
             decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -133,30 +125,14 @@ class _FasonPageState extends ConsumerState<FasonPage> {
               child: Row(
                 children: [
                   ListItems(
+                    flexx: 1,
                     item: fasons[index].firmName!.toUpperCase(),
                   ),
                   ListItems(
-                    item: " ${fasons[index].quality} x",
+                    flexx: 2,
+                    item:
+                        " ${fasons[index].quality} x ${fasons[index].thickness} x ${fasons[index].en}R",
                   ),
-                  ListItems(
-                    item: " ${fasons[index].thickness} x",
-                  ),
-                  ListItems(
-                    item: " ${fasons[index].en}R",
-                  ),
-                  IconButton(
-                    style: IconButton.styleFrom(
-                        foregroundColor: Colors.greenAccent),
-                    icon: const Icon(Icons.info),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return infoPageForFason(fasons, index);
-                        },
-                      );
-                    },
-                  )
                 ],
               ),
             ),
@@ -218,9 +194,12 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                               if (inputPro.boyValue.text == "") {
                                 inputPro.boyValue.text = "R";
                               }
+
                               fasons = FasonWork(
                                   id: "",
-                                  entryDate: DateTime.timestamp().toString(),
+                                  entryDate: DateTime.now()
+                                      .toString()
+                                      .substring(0, 10),
                                   quality: inputPro.qualityValue,
                                   thickness: double.parse(
                                       inputPro.thicknessValue.text),
@@ -230,7 +209,7 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
                                   writerId: "",
-                                  adet: 0);
+                                  adet: int.parse(inputPro.adet.text));
 
                               try {
                                 //firebase rules yazılacak
@@ -296,16 +275,16 @@ class BottomSheetTwo extends StatelessWidget {
               hintText: "1200",
               controller: inputPro.kiloValue),
           CustomTextFormField(
-              maxL: 1,
-              title: "Açıklama",
-              hintText: "açıklama",
-              controller: inputPro.description),
-          CustomTextFormField(
               inpuType: TextInputType.number,
               maxL: 1,
               title: "adet",
               hintText: "adet",
               controller: inputPro.adet),
+          CustomTextFormField(
+              maxL: 1,
+              title: "Açıklama",
+              hintText: "açıklama",
+              controller: inputPro.description),
         ],
       ),
     );

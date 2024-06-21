@@ -56,7 +56,8 @@ class _PvcAlanCalculatePageState extends State<PvcAlanCalculatePage> {
                               child: Text(maxLines: 4, "$sonuc metre kare "),
                             ),
                             ElevatedButton(
-                                //TODO: hesaplama sayfasına başka hesaplamalar eklenecek
+                                //TODO: hesaplama sayfasına başka hesaplamalar eklenecek timestamp
+                                //errorlar uida gösterilcek
                                 //internete bağlı olup olmadığımıza göre ekran
                                 onPressed: () {
                                   setState(() {

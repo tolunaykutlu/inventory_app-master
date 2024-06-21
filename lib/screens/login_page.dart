@@ -67,15 +67,15 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     onPressed: () {
                       ref
                           .read(authProvider)
-                          .signInWithEmailAndPassword(
-                              emailController.text, passwordController.text)
+                          .signInWithEmailAndPassword(emailController.text,
+                              passwordController.text, context)
                           .then((value) {
                         context.go('/mainPage');
-                      }).onError((error, stackTrace) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text("$error"),
+                      }).catchError((error, stackTrace) {
+                        // Show error message in UI
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("$error"),
                           ),
                         );
                       });

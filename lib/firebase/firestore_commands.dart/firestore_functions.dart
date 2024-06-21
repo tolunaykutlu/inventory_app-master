@@ -49,8 +49,7 @@ class FirestoreCommands extends ChangeNotifier {
     final collectionRef = FirebaseFirestore.instance.collection(collectionName);
 
     return collectionRef
-        .orderBy("entryDate", descending: false)
-        .limit(25)
+        .orderBy("entryDate", descending: true)
         .snapshots()
         .map((querySnapshot) {
       try {
@@ -72,7 +71,6 @@ class FirestoreCommands extends ChangeNotifier {
 
     return collectionRef
         .orderBy("entryDate", descending: true)
-        .limit(15)
         .snapshots()
         .map((querySnapshot) {
       try {
@@ -130,6 +128,16 @@ class FirestoreCommands extends ChangeNotifier {
   }
 
   Future addProductToStokDb(
+    //stokDatabaseCollection
+    String collectName,
+    ProductModel product,
+  ) async {
+    {
+      await _firestoreInstance.collection(collectName).add(product.toMap());
+    }
+  }
+
+  Future addProductToDataBase(
     //stokDatabaseCollection
     String collectName,
     ProductModel product,

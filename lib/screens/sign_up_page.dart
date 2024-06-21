@@ -102,6 +102,15 @@ class _SignInPageViewState extends ConsumerState<SignInPage> {
                                 );
                               },
                             );
+                          }).onError((error, stackTrace) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(error.toString()),
+                                );
+                              },
+                            );
                           });
                         } else {
                           showDialog(

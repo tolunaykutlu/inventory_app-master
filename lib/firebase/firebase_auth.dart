@@ -1,49 +1,59 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
+import 'package:inventory_app/components/snackbar_firebase_err.dart';
 
 class AuthProvider extends ChangeNotifier {
-  final firebaseFnc = FirestoreCommands();
-
-  Future<void> signOut() {
-    return FirebaseAuth.instance.signOut();
-  }
-
-  Future createAccount(String email, String password) async {
+  Future signInAnonymously() async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      firebaseFnc.addUsersToDb(email, password, credential.user?.uid);
-
-      return credential;
+      await FirebaseAuth.instance.signInAnonymously();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-      } else if (e.code == 'email-already-in-use') {}
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
+      switch (e.code) {
+        case "operation-not-allowed":
+          break;
+        default:
       }
     }
   }
 
-  Future signInWithEmailAndPassword(String email, String password) async {
+  signOut() async {
+    FirebaseAuth.instance.signOut();
+  }
+
+  Future<UserCredential> createAccount(String email, String password) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      UserCredential credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return credential;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
-      } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
+      throw Exception(e);
+    }
+  }
+
+  userID() {
+    String uid = "";
+
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+        uid = user.uid;
+      }
+    });
+    return uid;
+  }
+
+  Future<void> signInWithEmailAndPassword(
+      String email, String password, BuildContext context) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "invalid-email") {
+        showExceptions(context, e.message!);
       }
     }
   }

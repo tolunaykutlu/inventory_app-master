@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class ProductModel {
   String? id;
-  String? entryDate;
+  DateTime? entryDate;
   String? quality;
   double? thickness;
   int? en;
@@ -27,7 +27,7 @@ class ProductModel {
 
   ProductModel copyWith({
     String? id,
-    String? entryDate,
+    DateTime? entryDate,
     String? quality,
     double? thickness,
     int? en,
@@ -54,7 +54,7 @@ class ProductModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'entryDate': entryDate,
+      'entryDate': entryDate?.millisecondsSinceEpoch,
       'quality': quality,
       'thickness': thickness,
       'en': en,
@@ -69,7 +69,9 @@ class ProductModel {
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['id'] != null ? map['id'] as String : null,
-      entryDate: map['entryDate'] != null ? map['entryDate'] as String : null,
+      entryDate: map['entryDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['entryDate'] as int)
+          : null,
       quality: map['quality'] != null ? map['quality'] as String : null,
       thickness: map['thickness'] != null ? map['thickness'] as double : null,
       en: map['en'] != null ? map['en'] as int : null,

@@ -1,6 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
 import 'package:inventory_app/components/dropdown_button.dart';
@@ -8,12 +11,11 @@ import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/list_items.dart';
 import 'package:inventory_app/components/page_header.dart';
-import 'package:inventory_app/firebase/firebase_auth.dart';
-import 'package:inventory_app/providers/data_controllers.dart';
-import 'package:inventory_app/providers/input_controllers.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/product_model.dart';
+import 'package:inventory_app/providers/data_controllers.dart';
+import 'package:inventory_app/providers/input_controllers.dart';
 
 class PageThree extends ConsumerStatefulWidget {
   const PageThree({super.key});
@@ -103,7 +105,6 @@ class _PageThreeState extends ConsumerState<PageThree> {
                       backgroundColor: Colors.green,
                       foregroundColor: Colors.black),
                   onPressed: () {
-                    ref.read(authProvider).signOut;
                     inventoryProductAddSheet(context);
                   },
                   child: Text(
@@ -136,6 +137,12 @@ class _PageThreeState extends ConsumerState<PageThree> {
     return Padding(
         padding: const EdgeInsets.only(top: 5, left: 3, bottom: 5, right: 3),
         child: GestureDetector(
+          onTap: () => showDialog(
+            context: context,
+            builder: (context) {
+              return infoPage(products, index, context);
+            },
+          ),
           onLongPress: () {
             ref.read(firebaseProvider).deleteDocumentFromFirestore(
                   products[index].quality.toString(),
@@ -143,7 +150,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 );
           },
           child: Container(
-            height: 60,
+            height: context.deviceHeight > 750 ? 80 : 60,
             decoration: const BoxDecoration(
                 color: Colors.grey,
                 borderRadius: BorderRadius.all(Radius.circular(8))),
@@ -152,30 +159,9 @@ class _PageThreeState extends ConsumerState<PageThree> {
               child: Row(
                 children: [
                   ListItems(
-                    item: "${products[index].quality} x",
+                    item:
+                        "${products[index].quality} x ${products[index].thickness!.toStringAsFixed(2)} x ${products[index].en} x ${products[index].boy}",
                   ),
-                  ListItems(
-                      item:
-                          " ${products[index].thickness!.toStringAsFixed(2)} x"),
-                  ListItems(
-                    item: " ${products[index].en} x",
-                  ),
-                  ListItems(
-                    item: "${products[index].boy} ",
-                  ),
-                  IconButton(
-                    style: IconButton.styleFrom(
-                        foregroundColor: Colors.greenAccent),
-                    icon: const Icon(Icons.info),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return infoPage(products, index);
-                        },
-                      );
-                    },
-                  )
                 ],
               ),
             ),
@@ -257,7 +243,7 @@ class _PageThreeState extends ConsumerState<PageThree> {
 
                               productData = ProductModel(
                                   hasPvc: hasPvc,
-                                  entryDate: DateTime.timestamp().toString(),
+                                  entryDate: DateTime.now(),
                                   quality: inputPro.qualityValue,
                                   thickness: double.parse(
                                       inputPro.thicknessValue.text),
@@ -307,21 +293,56 @@ class _PageThreeState extends ConsumerState<PageThree> {
   }
 }
 
-class BottomSheetTwo extends StatelessWidget {
+class BottomSheetTwo extends StatefulWidget {
   const BottomSheetTwo({
     super.key,
     required this.ref,
   });
   final WidgetRef ref;
+
+  @override
+  State<BottomSheetTwo> createState() => _BottomSheetTwoState();
+}
+
+class _BottomSheetTwoState extends State<BottomSheetTwo> {
   @override
   Widget build(BuildContext context) {
-    var inputPro = ref.read(inputProvider);
+    bool ruloPlaka = true;
+
+    var inputPro = widget.ref.read(inputProvider);
     return SizedBox(
       width: context.deviceWidth / 2,
       child: Column(
         children: [
-          CustomTextFormField(
-              title: "Boy", hintText: "1230", controller: inputPro.boyValue),
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: CustomTextFormField(
+                    inpuType: TextInputType.number,
+                    title: "Boy",
+                    hintText: "1230",
+                    controller: inputPro.boyValue),
+              ),
+              Expanded(
+                flex: 1,
+                child: Card(
+                  color: Colors.black,
+                  child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          ruloPlaka = !ruloPlaka;
+                        });
+                      },
+                      child: Text(
+                        //TODO: rulo olunca R plaka olunca P olucak
+                        ruloPlaka == true ? "R" : "P",
+                        style: AppConsts.standartText(c: Colors.white),
+                      )),
+                ),
+              ),
+            ],
+          ),
           CustomTextFormField(
               inpuType: TextInputType.number,
               title: "Kilo",
