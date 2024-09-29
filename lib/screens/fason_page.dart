@@ -209,7 +209,9 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                                   firmName: inputPro.firmaName.text,
                                   description: inputPro.description.text,
                                   writerId: "",
-                                  adet: int.parse(inputPro.adet.text));
+                                  adet: inputPro.adet.text == ""
+                                      ? 0
+                                      : int.parse(inputPro.adet.text));
 
                               try {
                                 //firebase rules yazılacak
