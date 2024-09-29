@@ -1,6 +1,6 @@
 # inventory_app
 
-FASON İŞ VE STOK TAKİP UYGULAMASI
+ PASLANMAZ METAL SEKTÖRÜ İÇİN FASON İŞ VE STOK TAKİP UYGULAMASI
 -firebase cloudfirestore ile database
 -- stok ürün ekleme güncelleme silme
 -- fason ürün ekleme güncelleme silme işlemleri
