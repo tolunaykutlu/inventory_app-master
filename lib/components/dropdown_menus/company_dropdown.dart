@@ -5,14 +5,14 @@ import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/providers/input_controllers.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 
-class DropDownItems extends StatefulWidget {
-  const DropDownItems({super.key});
+class CompanyDropDownMenu extends StatefulWidget {
+  const CompanyDropDownMenu({super.key});
 
   @override
-  State<DropDownItems> createState() => _DropDownItemsState();
+  State<CompanyDropDownMenu> createState() => _CompanyDropDownMenuState();
 }
 
-class _DropDownItemsState extends State<DropDownItems> {
+class _CompanyDropDownMenuState extends State<CompanyDropDownMenu> {
   @override
   void dispose() {
     defValue;
@@ -22,19 +22,18 @@ class _DropDownItemsState extends State<DropDownItems> {
   final TextEditingController c = TextEditingController();
 
   final List<String> _items = [
-    "430BA",
-    "430SB",
-    "4302B",
-    "3042B",
-    "304BA",
-    "201",
-    "301",
-    "DKP",
-    "PİRİNC",
-    "GLVNZ",
-    "ALİMİNYUM"
+    "KUTLU METAL",
+    "ÇİMEN ÇELİK",
+    "SIRAKAYA METAL",
+    "PASA METAL",
+    "DEM PASLANMAZ",
+    "DSM GLVNZ",
+    "CENGİZ SAC",
+    "YİGİT PASLANMAZ",
+    "KERİM METAL",
+    "RESUL IRMAK"
   ];
-  String defValue = "430BA";
+  String defValue = "KUTLU METAL";
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,7 +46,8 @@ class _DropDownItemsState extends State<DropDownItems> {
             return Padding(
               padding: const EdgeInsets.only(left: 10),
               child: DropdownButton<String>(
-                hint: const Text("kalite"),
+                menuMaxHeight: 300,
+                hint: const Text("Firma"),
                 style: AppConsts.syneMono(),
                 value: defValue,
                 items: _items.map((String item) {
@@ -60,7 +60,7 @@ class _DropDownItemsState extends State<DropDownItems> {
                   setState(() {
                     defValue = yeniValue!;
 
-                    ref.watch(inputProvider).qualityValue = defValue;
+                    ref.watch(inputProvider).firmaName.text = defValue;
                   });
                 },
               ),

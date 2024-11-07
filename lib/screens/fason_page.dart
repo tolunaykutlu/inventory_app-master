@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
-import 'package:inventory_app/components/dropdown_button.dart';
+import 'package:inventory_app/components/dropdown_menus/company_dropdown.dart';
+import 'package:inventory_app/components/dropdown_menus/dropdown_button.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/list_items.dart';
 import 'package:inventory_app/components/page_header.dart';
+import 'package:inventory_app/components/dropdown_menus/quality_ddown_menu.dart';
 import 'package:inventory_app/extensions/get_size.dart';
 import 'package:inventory_app/firebase/firestore_commands.dart/firestore_functions.dart';
 import 'package:inventory_app/models/fason_kesim_model.dart';
@@ -27,7 +29,6 @@ class _FasonPageState extends ConsumerState<FasonPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        //singleChileScrollView widgetini kullanarak klavye açıldığında headerı itmesini engelle
         child: Padding(
           padding: const EdgeInsets.only(top: 35, left: 10, right: 10),
           child: Column(
@@ -44,14 +45,23 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                   )),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.black),
+                      backgroundColor: Colors.green.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 3),
                   onPressed: () {
                     inventoryProductAddSheet(context);
                   },
                   child: Text(
                     "Fason Ekle",
-                    style: AppConsts.syneMono(),
+                    style: AppConsts.syneMono().copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ))
             ],
           ),
@@ -116,22 +126,33 @@ class _FasonPageState extends ConsumerState<FasonPage> {
                 );
           },
           child: Container(
-            height: context.deviceWidth > 500 ? 80 : 60,
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(5))),
+            height: context.deviceHeight > 750 ? 80 : 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+              border:
+                  Border.all(color: Colors.black.withOpacity(0.8), width: 1.5),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 4, right: 4),
-              child: Row(
+              padding: const EdgeInsets.only(top: 8, left: 4, right: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListItems(
-                    flexx: 1,
-                    item: fasons[index].firmName!.toUpperCase(),
+                    item:
+                        "Firma : ${fasons[index].firmName!.toUpperCase()} // ${fasons[index].entryDate}  ",
                   ),
                   ListItems(
-                    flexx: 2,
                     item:
-                        " ${fasons[index].quality} x ${fasons[index].thickness} x ${fasons[index].en}R",
+                        "${fasons[index].quality} x ${fasons[index].thickness} x ${fasons[index].en}R -- ${fasons[index].boy}mm kesilcek  ${fasons[index].kilo}KG",
                   ),
                 ],
               ),
@@ -144,7 +165,10 @@ class _FasonPageState extends ConsumerState<FasonPage> {
     bool isVisible = false;
     var inputPro = ref.read(inputProvider);
     return showModalBottomSheet(
-      shape: const BeveledRectangleBorder(),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.grey[50],
       isScrollControlled: true,
       context: context,
       builder: (context) {
@@ -307,17 +331,13 @@ class BottomSheetOne extends StatelessWidget {
         width: context.deviceWidth / 2,
         child: Column(
           children: [
-            const DropDownItems(),
-            CustomTextFormField(
+            const QualityDropDownMenu(),
+            const CompanyDropDownMenu(),
+            /* CustomTextFormField(
                 title: "Firma",
                 hintText: "kutlu metal",
-                controller: inputPro.firmaName),
-            CustomTextFormField(
-              inpuType: TextInputType.number,
-              controller: inputPro.thicknessValue,
-              hintText: "0.40",
-              title: "Kalinlik",
-            ),
+                controller: inputPro.firmaName), */
+            const ThicknessDropDownMenu(),
             CustomTextFormField(
                 inpuType: TextInputType.number,
                 title: "En",

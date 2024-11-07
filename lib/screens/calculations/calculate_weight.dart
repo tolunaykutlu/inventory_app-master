@@ -41,14 +41,17 @@ class _WeightCalculationState extends State<WeightCalculation> {
                         child: Column(
                           children: [
                             CustomTextFormField(
+                                inpuType: TextInputType.number,
                                 title: "kalınlık",
                                 hintText: "0.40",
                                 controller: tCont),
                             CustomTextFormField(
+                                inpuType: TextInputType.number,
                                 title: "genişlik",
                                 hintText: "1200",
                                 controller: wCont),
                             CustomTextFormField(
+                                inpuType: TextInputType.number,
                                 title: "uzunluk",
                                 hintText: "2500",
                                 controller: hCont),
@@ -60,13 +63,14 @@ class _WeightCalculationState extends State<WeightCalculation> {
                             ElevatedButton(
                                 onPressed: () {
                                   setState(() {
+                                    sonuc = 0;
                                     if (wCont.text != "" &&
                                         hCont.text != "" &&
                                         tCont.text != "") {
                                       double res = double.parse(wCont.text) *
                                           double.parse(hCont.text) *
                                           double.parse(tCont.text);
-                                      sonuc = res * freeWeight;
+                                      sonuc = (res * freeWeight) / 1000000;
                                     } else {
                                       showDialog(
                                           context: context,
@@ -93,7 +97,7 @@ class _WeightCalculationState extends State<WeightCalculation> {
           );
         },
         child: Text(
-          "Ağırlık Hesaplama",
+          "Ağirlik Hesaplama",
           style: AppConsts.syneMono(fSize: 20),
         ));
   }

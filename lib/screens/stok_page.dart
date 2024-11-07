@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:inventory_app/components/app_constants.dart';
 import 'package:inventory_app/components/custom_textform.dart';
-import 'package:inventory_app/components/dropdown_button.dart';
+import 'package:inventory_app/components/dropdown_menus/dropdown_button.dart';
+import 'package:inventory_app/components/dropdown_menus/quality_ddown_menu.dart';
 import 'package:inventory_app/components/horizontal_divider.dart';
 import 'package:inventory_app/components/info__alert_page.dart';
 import 'package:inventory_app/components/list_items.dart';
@@ -102,14 +103,23 @@ class _PageThreeState extends ConsumerState<PageThree> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      foregroundColor: Colors.black),
+                      backgroundColor: Colors.green.shade600,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 3),
                   onPressed: () {
                     inventoryProductAddSheet(context);
                   },
                   child: Text(
                     "Stok Ekle",
-                    style: AppConsts.syneMono(),
+                    style: AppConsts.syneMono().copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ))
             ],
           ),
@@ -150,12 +160,23 @@ class _PageThreeState extends ConsumerState<PageThree> {
                 );
           },
           child: Container(
-            height: context.deviceHeight > 750 ? 80 : 60,
-            decoration: const BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.all(Radius.circular(8))),
+            height: context.deviceHeight > 750 ? 80 : 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+              border:
+                  Border.all(color: Colors.black.withOpacity(0.8), width: 1.5),
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(left: 4, right: 4),
+              padding: const EdgeInsets.only(left: 7, right: 7),
               child: Row(
                 children: [
                   ListItems(
@@ -175,7 +196,10 @@ class _PageThreeState extends ConsumerState<PageThree> {
     var inputPro = ref.read(inputProvider);
 
     return showModalBottomSheet(
-      shape: const BeveledRectangleBorder(),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.grey[50],
       isScrollControlled: true,
       context: context,
       builder: (context) {
@@ -335,7 +359,7 @@ class _BottomSheetTwoState extends State<BottomSheetTwo> {
                         });
                       },
                       child: Text(
-                        //TODO: rulo olunca R plaka olunca P olucak
+                        //TODO: rulo olunca R plaka olunca P olucak plaka olursa adet için ayrı bir alan olucak
                         ruloPlaka == true ? "R" : "P",
                         style: AppConsts.standartText(c: Colors.white),
                       )),
@@ -373,13 +397,8 @@ class BottomSheetOne extends StatelessWidget {
         width: context.deviceWidth / 2,
         child: Column(
           children: [
-            const DropDownItems(),
-            CustomTextFormField(
-              inpuType: TextInputType.number,
-              controller: inputPro.thicknessValue,
-              hintText: "0.40",
-              title: "Kalinlik",
-            ),
+            const QualityDropDownMenu(),
+            const ThicknessDropDownMenu(),
             CustomTextFormField(
                 inpuType: TextInputType.number,
                 title: "En",
